@@ -12,11 +12,11 @@ public class Tea implements Beverage {
 
     @Override
     public void prepare() {
-
+        System.out.println("You chose: " + this);
     }
 
     @Override
     public String toString() {
-        return "Tea";
+        return String.format("%s tea", getTeaType().toString().toLowerCase());
     }
 }

@@ -36,11 +36,15 @@ public class Coffee implements Beverage {
 
     @Override
     public void prepare() {
-
+        System.out.println("You chose: " + this);
     }
 
     @Override
     public String toString() {
-        return String.format("Coffee with %d units of milk and %d units of sugar.", getMilkUnits(), getSugarUnits());
+        return String.format(
+                "%s coffee with %d units of milk and %d units of sugar.",
+                getCoffeeType().toString().toLowerCase(),
+                getMilkUnits(),
+                getSugarUnits());
     }
 }

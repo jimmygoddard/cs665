@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class App {
 
     public static Beverage chooseBeverageCategory() {
+        // FIXME catch InputMismatchException
         final Scanner keyboard = new Scanner(System.in);
         Beverage beverage = null;
         while (beverage == null) {

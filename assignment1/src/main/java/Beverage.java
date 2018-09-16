@@ -1,4 +1,10 @@
+import java.util.List;
+
 public interface Beverage {
 
-    void prepare();
+    String getDescriptor();
+
+    List<String> getTypes();
+
+    void setType(String type);
 }

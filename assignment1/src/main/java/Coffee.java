@@ -1,16 +1,11 @@
+import java.util.Arrays;
+import java.util.List;
+
 public class Coffee implements Beverage {
 
-    private CoffeeType coffeeType;
+    private String type;
     private int milkUnits = 0;
     private int sugarUnits = 0;
-
-    public CoffeeType getCoffeeType() {
-        return coffeeType;
-    }
-
-    public void setCoffeeType(final CoffeeType coffeeType) {
-        this.coffeeType = coffeeType;
-    }
 
     public int getMilkUnits() {
         return milkUnits;
@@ -35,15 +30,29 @@ public class Coffee implements Beverage {
     }
 
     @Override
-    public void prepare() {
-        System.out.println("You chose: " + this);
+    public String getDescriptor() {
+        return "coffee";
+    }
+
+    @Override
+    public List<String> getTypes() {
+        return Arrays.asList("americano", "espresso", "latte machiato");
+    }
+
+    @Override
+    public void setType(final String type) {
+        this.type = type;
+    }
+
+    private String getType() {
+        return this.type;
     }
 
     @Override
     public String toString() {
         return String.format(
                 "%s coffee with %d units of milk and %d units of sugar.",
-                getCoffeeType().toString().toLowerCase(),
+                getType(),
                 getMilkUnits(),
                 getSugarUnits());
     }

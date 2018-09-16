@@ -1,22 +1,31 @@
+import java.util.Arrays;
+import java.util.List;
+
 public class Tea implements Beverage {
 
-    private TeaType teaType;
+    private String type;
 
-    public TeaType getTeaType() {
-        return teaType;
-    }
-
-    public void setTeaType(final TeaType teaType) {
-        this.teaType = teaType;
+    @Override
+    public String getDescriptor() {
+        return "tea";
     }
 
     @Override
-    public void prepare() {
-        System.out.println("You chose: " + this);
+    public List<String> getTypes() {
+        return Arrays.asList("black", "green", "yellow");
+    }
+
+    @Override
+    public void setType(final String type) {
+        this.type = type;
+    }
+
+    private String getType() {
+        return this.type;
     }
 
     @Override
     public String toString() {
-        return String.format("%s tea", getTeaType().toString().toLowerCase());
+        return String.format("%s tea", getType());
     }
 }

@@ -17,6 +17,9 @@ public class Tea implements Beverage {
 
     @Override
     public void setType(final String type) {
+        if (!getTypes().contains(type)) {
+            throw new IllegalArgumentException("Type must be one of " + getTypes());
+        }
         this.type = type;
     }
 

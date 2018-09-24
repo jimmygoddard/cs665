@@ -6,6 +6,10 @@
  * user guide available at https://docs.gradle.org/3.4.1/userguide/tutorial_java_projects.html
  */
 
+plugins {
+    id "com.diffplug.gradle.spotless" version "3.15.0"
+}
+
 // Apply the java plugin to add support for Java
 apply plugin: 'java'
 
@@ -29,4 +33,10 @@ dependencies {
 
 // Define the main class for the application
 mainClassName = 'App'
+
+spotless {
+    java {
+        googleJavaFormat()
+    }
+}
 

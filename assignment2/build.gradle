@@ -34,9 +34,25 @@ dependencies {
 // Define the main class for the application
 mainClassName = 'App'
 
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'App'
+        )
+    }
+}
+
+javadoc {
+    source = sourceSets.main.allJava
+    options.addBooleanOption('html5', true)
+}
+
 spotless {
     java {
         googleJavaFormat()
     }
 }
 
+afterEvaluate {
+    build.dependsOn javadoc
+}

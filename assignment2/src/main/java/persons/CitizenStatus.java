@@ -1,6 +1,6 @@
 package persons;
 
 public enum CitizenStatus {
-    CITIZEN,
-    VISA
+  CITIZEN,
+  VISA
 }

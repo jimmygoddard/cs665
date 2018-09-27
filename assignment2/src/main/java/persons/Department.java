@@ -1,7 +1,7 @@
 package persons;
 
 public enum Department {
-    ENGINEERING,
-    SALES,
-    SUPPORT
+  ENGINEERING,
+  SALES,
+  SUPPORT
 }

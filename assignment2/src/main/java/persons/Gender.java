@@ -1,6 +1,6 @@
 package persons;
 
 public enum Gender {
-    MALE,
-    FEMALE
+  MALE,
+  FEMALE
 }

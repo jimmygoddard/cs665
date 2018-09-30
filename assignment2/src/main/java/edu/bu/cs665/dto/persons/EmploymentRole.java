@@ -1,4 +1,4 @@
-package persons;
+package edu.bu.cs665.dto.persons;
 
 public enum EmploymentRole {
   MANAGER,

@@ -1,4 +1,4 @@
-package persons;
+package edu.bu.cs665.dto.persons;
 
 import java.time.LocalDate;
 
@@ -17,67 +17,67 @@ public class EmployeeBuilder {
   private Department department;
   private EmploymentRole employmentRole;
 
-  public EmployeeBuilder setFirstName(String firstName) {
+  public EmployeeBuilder setFirstName(final String firstName) {
     this.firstName = firstName;
     return this;
   }
 
-  public EmployeeBuilder setLastName(String lastName) {
+  public EmployeeBuilder setLastName(final String lastName) {
     this.lastName = lastName;
     return this;
   }
 
-  public EmployeeBuilder setMiddleInitial(String middleInitial) {
+  public EmployeeBuilder setMiddleInitial(final String middleInitial) {
     this.middleInitial = middleInitial;
     return this;
   }
 
-  public EmployeeBuilder setId(int id) {
+  public EmployeeBuilder setId(final int id) {
     this.id = id;
     return this;
   }
 
-  public EmployeeBuilder setAddress(String address) {
+  public EmployeeBuilder setAddress(final String address) {
     this.address = address;
     return this;
   }
 
-  public EmployeeBuilder setTitle(String title) {
+  public EmployeeBuilder setTitle(final String title) {
     this.title = title;
     return this;
   }
 
-  public EmployeeBuilder setSalary(int salary) {
+  public EmployeeBuilder setSalary(final int salary) {
     this.salary = salary;
     return this;
   }
 
-  public EmployeeBuilder setStartDate(LocalDate startDate) {
+  public EmployeeBuilder setStartDate(final LocalDate startDate) {
     this.startDate = startDate;
     return this;
   }
 
-  public EmployeeBuilder setCitizenStatus(CitizenStatus citizenStatus) {
+  public EmployeeBuilder setCitizenStatus(final CitizenStatus citizenStatus) {
     this.citizenStatus = citizenStatus;
     return this;
   }
 
-  public EmployeeBuilder setGender(Gender gender) {
+  public EmployeeBuilder setGender(final Gender gender) {
     this.gender = gender;
     return this;
   }
 
-  public EmployeeBuilder setWorkLocation(WorkLocation workLocation) {
+  public EmployeeBuilder setWorkLocation(final WorkLocation workLocation) {
     this.workLocation = workLocation;
     return this;
   }
 
-  public EmployeeBuilder setDepartment(Department department) {
+  public EmployeeBuilder setDepartment(final Department department) {
     this.department = department;
     return this;
   }
 
-  public EmployeeBuilder setEmploymentRole(EmploymentRole employmentRole) {
+  public EmployeeBuilder setEmploymentRole(final EmploymentRole employmentRole) {
     this.employmentRole = employmentRole;
     return this;
   }

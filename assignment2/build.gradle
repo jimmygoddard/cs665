@@ -13,6 +13,10 @@ plugins {
 // Apply the java plugin to add support for Java
 apply plugin: 'java'
 
+// IDE plugins
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+
 // Apply the application plugin to add support for building an application
 apply plugin: 'application'
 
@@ -24,9 +28,6 @@ repositories {
 }
 
 dependencies {
-    // This dependency is found on compile classpath of this component and consumers.
-    compile 'com.google.guava:guava:20.0'
-
     // Use JUnit test framework
     testCompile 'junit:junit:4.12'
 }

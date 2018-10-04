@@ -12,5 +12,4 @@ public interface PersonsDao {
   void deleteEmployee(int id);
 
   List<Employee> getEmployees();
-
 }

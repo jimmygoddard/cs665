@@ -10,7 +10,7 @@ public class PersonsServiceImpl implements PersonsService {
   private PersonsServiceImpl() {}
 
   private static class PersonsServiceImplHolder {
-    public static final PersonsService instance = new PersonsServiceImpl();
+    private static final PersonsService instance = new PersonsServiceImpl();
   }
 
   public static PersonsService getPersonsService() {

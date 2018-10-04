@@ -11,7 +11,7 @@ public class PersonsDaoImpl implements PersonsDao {
   private PersonsDaoImpl() {}
 
   private static class PersonsDaoImplHolder {
-    public static final PersonsDao instance = new PersonsDaoImpl();
+    private static final PersonsDao instance = new PersonsDaoImpl();
   }
 
   public static PersonsDao getPersonsDao() {

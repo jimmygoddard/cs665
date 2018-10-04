@@ -10,7 +10,7 @@ public class PersistenceImpl implements Persistence {
   private PersistenceImpl() {}
 
   private static class PersistenceImplHolder {
-    public static final Persistence instance = new PersistenceImpl();
+    private static final Persistence instance = new PersistenceImpl();
   }
 
   public static Persistence getPersistence() {

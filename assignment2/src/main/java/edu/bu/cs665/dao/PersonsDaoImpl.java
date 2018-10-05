@@ -6,7 +6,6 @@ import java.util.List;
 public class PersonsDaoImpl implements PersonsDao {
 
   private final Persistence persistence = PersistenceImpl.getPersistence();
-  private final List<Employee> employees = persistence.getEmployees();
 
   private PersonsDaoImpl() {}
 
@@ -20,11 +19,35 @@ public class PersonsDaoImpl implements PersonsDao {
 
   @Override
   public void addEmployee(final Employee employee) {
+    final List<Employee> employees = persistence.getEmployees();
     employees.add(employee);
+    persistence.setEmployees(employees);
+  }
+
+  @Override
+  public void updateEmployee(final int id, final Employee employee) {
+    final int i = getIndexOfEmployeeById(id);
+    final List<Employee> employees = persistence.getEmployees();
+    employees.set(i, employee);
+    persistence.setEmployees(employees);
+  }
+
+  @Override
+  public void deleteEmployee(final int id) {
+    final int i = getIndexOfEmployeeById(id);
+    final List<Employee> employees = persistence.getEmployees();
+    employees.remove(i);
+    persistence.setEmployees(employees);
+  }
+
+  @Override
+  public List<Employee> getEmployees() {
+    return persistence.getEmployees();
   }
 
   private int getIndexOfEmployeeById(final int id) {
     int i = 0;
+    final List<Employee> employees = persistence.getEmployees();
     for (final Employee emp : employees) {
       if (emp.getId() == id) {
         break;
@@ -32,22 +55,5 @@ public class PersonsDaoImpl implements PersonsDao {
       ++i;
     }
     return i;
-  }
-
-  @Override
-  public void updateEmployee(final int id, final Employee employee) {
-    final int i = getIndexOfEmployeeById(id);
-    employees.set(i, employee);
-  }
-
-  @Override
-  public void deleteEmployee(final int id) {
-    final int i = getIndexOfEmployeeById(id);
-    employees.remove(i);
-  }
-
-  @Override
-  public List<Employee> getEmployees() {
-    return this.employees;
   }
 }

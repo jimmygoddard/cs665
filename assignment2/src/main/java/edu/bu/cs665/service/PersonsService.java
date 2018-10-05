@@ -1,6 +1,7 @@
 package edu.bu.cs665.service;
 
 import edu.bu.cs665.dto.persons.Employee;
+import java.util.List;
 
 public interface PersonsService {
 
@@ -9,4 +10,12 @@ public interface PersonsService {
   void updateEmployee(int id, Employee employee);
 
   void deleteEmployee(int id);
+
+  List<Employee> getEmployeesFromUS();
+
+  List<Employee> getEmployeesNotInUS();
+
+  List<Employee> getMaleEmployees();
+
+  List<Employee> getFemaleEmployees();
 }

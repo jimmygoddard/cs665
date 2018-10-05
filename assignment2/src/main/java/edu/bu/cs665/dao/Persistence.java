@@ -6,4 +6,6 @@ import java.util.List;
 public interface Persistence {
 
   List<Employee> getEmployees();
+
+  void setEmployees(List<Employee> employees);
 }

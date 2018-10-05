@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PersistenceImpl implements Persistence {
-  private final List<Employee> employees = new ArrayList<>();
+  private List<Employee> employees = new ArrayList<>();
 
   private PersistenceImpl() {}
 
@@ -20,5 +20,10 @@ public class PersistenceImpl implements Persistence {
   @Override
   public List<Employee> getEmployees() {
     return employees;
+  }
+
+  @Override
+  public void setEmployees(final List<Employee> employees) {
+    this.employees = employees;
   }
 }

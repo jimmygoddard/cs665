@@ -5,7 +5,17 @@ import java.util.List;
 
 public interface Persistence {
 
+  /**
+   * Retrieve employees from persistence
+   *
+   * @return all employees currently persisted
+   */
   List<Employee> getEmployees();
 
+  /**
+   * Persist employees
+   *
+   * @param employees list of employees to persist
+   */
   void setEmployees(List<Employee> employees);
 }

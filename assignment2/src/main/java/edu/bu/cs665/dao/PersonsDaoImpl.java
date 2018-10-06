@@ -1,6 +1,7 @@
 package edu.bu.cs665.dao;
 
 import edu.bu.cs665.dto.persons.Employee;
+import edu.bu.cs665.exception.EmployeeNotFoundException;
 import java.util.List;
 
 public class PersonsDaoImpl implements PersonsDao {
@@ -25,7 +26,8 @@ public class PersonsDaoImpl implements PersonsDao {
   }
 
   @Override
-  public void updateEmployee(final int id, final Employee employee) {
+  public void updateEmployee(final int id, final Employee employee)
+      throws EmployeeNotFoundException {
     final int i = getIndexOfEmployeeById(id);
     final List<Employee> employees = getEmployees();
     employee.setId(id);
@@ -34,7 +36,7 @@ public class PersonsDaoImpl implements PersonsDao {
   }
 
   @Override
-  public void deleteEmployee(final int id) {
+  public void deleteEmployee(final int id) throws EmployeeNotFoundException {
     final int i = getIndexOfEmployeeById(id);
     final List<Employee> employees = getEmployees();
     employees.remove(i);
@@ -46,14 +48,19 @@ public class PersonsDaoImpl implements PersonsDao {
     return persistence.getEmployees();
   }
 
-  private int getIndexOfEmployeeById(final int id) {
+  private int getIndexOfEmployeeById(final int id) throws EmployeeNotFoundException {
     int i = 0;
+    boolean found = false;
     final List<Employee> employees = getEmployees();
     for (final Employee employee : employees) {
       if (employee.getId() == id) {
+        found = true;
         break;
       }
       ++i;
+    }
+    if (!found) {
+      throw new EmployeeNotFoundException("no employee with id " + id);
     }
     return i;
   }

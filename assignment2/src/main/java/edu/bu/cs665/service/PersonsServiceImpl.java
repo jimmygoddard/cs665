@@ -7,6 +7,7 @@ import edu.bu.cs665.dao.PersonsDaoImpl;
 import edu.bu.cs665.dto.persons.CitizenStatus;
 import edu.bu.cs665.dto.persons.Employee;
 import edu.bu.cs665.dto.persons.Gender;
+import edu.bu.cs665.exception.EmployeeNotFoundException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,12 +31,13 @@ public class PersonsServiceImpl implements PersonsService {
   }
 
   @Override
-  public void updateEmployee(final int id, final Employee employee) {
+  public void updateEmployee(final int id, final Employee employee)
+      throws EmployeeNotFoundException {
     personsDao.updateEmployee(id, employee);
   }
 
   @Override
-  public void deleteEmployee(final int id) {
+  public void deleteEmployee(final int id) throws EmployeeNotFoundException {
     personsDao.deleteEmployee(id);
   }
 
@@ -45,12 +47,12 @@ public class PersonsServiceImpl implements PersonsService {
   }
 
   @Override
-  public Employee getEmployee(final int id) {
+  public Employee getEmployee(final int id) throws EmployeeNotFoundException {
     return getEmployees()
         .stream()
         .filter(employee -> employee.getId() == id)
         .findFirst()
-        .orElse(null);
+        .orElseThrow(() -> new EmployeeNotFoundException("employee not found for id " + id));
   }
 
   @Override

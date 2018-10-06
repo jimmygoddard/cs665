@@ -4,6 +4,8 @@ import java.util.List;
 
 public interface Chooser {
 
+  String getSingleChoice(List<String> choices, boolean showPrompt);
+
   String getSingleChoice(List<String> choices);
 
   List<String> getMultipleChoices(List<String> choices);

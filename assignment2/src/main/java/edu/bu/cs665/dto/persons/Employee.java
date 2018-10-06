@@ -4,19 +4,19 @@ import java.time.LocalDate;
 
 public class Employee {
 
-  private final String firstName;
-  private final String lastName;
-  private final String middleInitial;
-  private final int id;
-  private final String address;
-  private final String title;
-  private final int salary;
-  private final LocalDate startDate;
-  private final CitizenStatus citizenStatus;
-  private final Gender gender;
-  private final WorkLocation workLocation;
-  private final Department department;
-  private final EmploymentRole employmentRole;
+  private String firstName;
+  private String lastName;
+  private String middleInitial;
+  private int id;
+  private String address;
+  private String title;
+  private int salary;
+  private LocalDate startDate;
+  private CitizenStatus citizenStatus;
+  private Gender gender;
+  private WorkLocation workLocation;
+  private Department department;
+  private EmploymentRole employmentRole;
 
   private Employee(
       final String firstName,
@@ -51,52 +51,141 @@ public class Employee {
     return firstName;
   }
 
+  public void setFirstName(final String firstName) {
+    this.firstName = firstName;
+  }
+
   public String getLastName() {
     return lastName;
+  }
+
+  public void setLastName(final String lastName) {
+    this.lastName = lastName;
   }
 
   public String getMiddleInitial() {
     return middleInitial;
   }
 
+  public void setMiddleInitial(final String middleInitial) {
+    this.middleInitial = middleInitial;
+  }
+
   public int getId() {
     return id;
+  }
+
+  public void setId(final int id) {
+    this.id = id;
   }
 
   public String getAddress() {
     return address;
   }
 
+  public void setAddress(final String address) {
+    this.address = address;
+  }
+
   public String getTitle() {
     return title;
+  }
+
+  public void setTitle(final String title) {
+    this.title = title;
   }
 
   public int getSalary() {
     return salary;
   }
 
+  public void setSalary(final int salary) {
+    this.salary = salary;
+  }
+
   public LocalDate getStartDate() {
     return startDate;
+  }
+
+  public void setStartDate(final LocalDate startDate) {
+    this.startDate = startDate;
   }
 
   public CitizenStatus getCitizenStatus() {
     return citizenStatus;
   }
 
+  public void setCitizenStatus(final CitizenStatus citizenStatus) {
+    this.citizenStatus = citizenStatus;
+  }
+
   public Gender getGender() {
     return gender;
+  }
+
+  public void setGender(final Gender gender) {
+    this.gender = gender;
   }
 
   public WorkLocation getWorkLocation() {
     return workLocation;
   }
 
+  public void setWorkLocation(final WorkLocation workLocation) {
+    this.workLocation = workLocation;
+  }
+
   public Department getDepartment() {
     return department;
   }
 
+  public void setDepartment(final Department department) {
+    this.department = department;
+  }
+
   public EmploymentRole getEmploymentRole() {
     return employmentRole;
+  }
+
+  public void setEmploymentRole(final EmploymentRole employmentRole) {
+    this.employmentRole = employmentRole;
+  }
+
+  @Override
+  public String toString() {
+    return "Employee{"
+        + "firstName='"
+        + firstName
+        + '\''
+        + ", lastName='"
+        + lastName
+        + '\''
+        + ", middleInitial='"
+        + middleInitial
+        + '\''
+        + ", id="
+        + id
+        + ", address='"
+        + address
+        + '\''
+        + ", title='"
+        + title
+        + '\''
+        + ", salary="
+        + salary
+        + ", startDate="
+        + startDate
+        + ", citizenStatus="
+        + citizenStatus
+        + ", gender="
+        + gender
+        + ", workLocation="
+        + workLocation
+        + ", department="
+        + department
+        + ", employmentRole="
+        + employmentRole
+        + '}';
   }
 
   public static class EmployeeBuilder {

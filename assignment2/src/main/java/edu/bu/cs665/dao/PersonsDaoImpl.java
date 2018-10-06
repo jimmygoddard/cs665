@@ -19,7 +19,7 @@ public class PersonsDaoImpl implements PersonsDao {
 
   @Override
   public void addEmployee(final Employee employee) {
-    final List<Employee> employees = persistence.getEmployees();
+    final List<Employee> employees = getEmployees();
     employees.add(employee);
     persistence.setEmployees(employees);
   }
@@ -27,7 +27,8 @@ public class PersonsDaoImpl implements PersonsDao {
   @Override
   public void updateEmployee(final int id, final Employee employee) {
     final int i = getIndexOfEmployeeById(id);
-    final List<Employee> employees = persistence.getEmployees();
+    final List<Employee> employees = getEmployees();
+    employee.setId(id);
     employees.set(i, employee);
     persistence.setEmployees(employees);
   }
@@ -35,7 +36,7 @@ public class PersonsDaoImpl implements PersonsDao {
   @Override
   public void deleteEmployee(final int id) {
     final int i = getIndexOfEmployeeById(id);
-    final List<Employee> employees = persistence.getEmployees();
+    final List<Employee> employees = getEmployees();
     employees.remove(i);
     persistence.setEmployees(employees);
   }
@@ -47,9 +48,9 @@ public class PersonsDaoImpl implements PersonsDao {
 
   private int getIndexOfEmployeeById(final int id) {
     int i = 0;
-    final List<Employee> employees = persistence.getEmployees();
-    for (final Employee emp : employees) {
-      if (emp.getId() == id) {
+    final List<Employee> employees = getEmployees();
+    for (final Employee employee : employees) {
+      if (employee.getId() == id) {
         break;
       }
       ++i;

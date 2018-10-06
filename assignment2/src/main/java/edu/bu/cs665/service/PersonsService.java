@@ -11,6 +11,10 @@ public interface PersonsService {
 
   void deleteEmployee(int id);
 
+  List<Employee> getEmployees();
+
+  Employee getEmployee(int id);
+
   List<Employee> getEmployeesFromUS();
 
   List<Employee> getEmployeesNotInUS();
@@ -18,4 +22,6 @@ public interface PersonsService {
   List<Employee> getMaleEmployees();
 
   List<Employee> getFemaleEmployees();
+
+  long getTenureInDaysForEmployee(Employee employee);
 }

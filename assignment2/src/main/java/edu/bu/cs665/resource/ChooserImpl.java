@@ -8,12 +8,14 @@ import java.util.Scanner;
 public class ChooserImpl implements Chooser {
 
   @Override
-  public String getSingleChoice(final List<String> choices) {
+  public String getSingleChoice(final List<String> choices, final boolean showPrompt) {
     final Scanner keyboard = new Scanner(System.in);
     String selection = null;
     while (selection == null) {
-      System.out.println("Please choose one of the following:");
-      System.out.println();
+      if (showPrompt) {
+        System.out.println("Please choose one of the following:");
+        System.out.println();
+      }
       for (int i = 0; i < choices.size(); ++i) {
         System.out.println(String.format("\t%d. %s", i + 1, choices.get(i)));
       }
@@ -34,6 +36,11 @@ public class ChooserImpl implements Chooser {
       }
     }
     return selection;
+  }
+
+  @Override
+  public String getSingleChoice(final List<String> choices) {
+    return getSingleChoice(choices, true);
   }
 
   @Override

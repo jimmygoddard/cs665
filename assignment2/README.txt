@@ -12,7 +12,7 @@ Then run:
 
 To run the application:
 
-  > java -jar build/libs/assignment1.jar
+  > java -jar build/libs/assignment2.jar
 
 To quit the application use Ctrl-C.
 
@@ -71,3 +71,7 @@ Employee objects.
 The unit tests are all fairly straightforward and designed to isolate each method
 in each layer to validate that they work as expected.  Each unit test has a javadoc
 comment describing what steps are performed in the validation.
+
+I made liberal use of Java 8 streams and lambdas.  In the App.java class you can
+see that I implemented a menu using an ordered map whose values are Runnable
+objects which can be run to perform the actions selected by the user.

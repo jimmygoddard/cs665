@@ -28,7 +28,6 @@ repositories {
 }
 
 dependencies {
-    // Use JUnit test framework
     compile 'org.fluttercode.datafactory:datafactory:0.8'
     compile 'org.apache.commons:commons-lang3:3.8.1'
     testCompile 'junit:junit:4.12'
@@ -39,9 +38,10 @@ mainClassName = 'App'
 
 jar {
     manifest {
-        attributes(
-                'Main-Class': 'App'
-        )
+        attributes 'Main-Class': 'edu.bu.cs665.App'
+    }
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
     }
 }
 

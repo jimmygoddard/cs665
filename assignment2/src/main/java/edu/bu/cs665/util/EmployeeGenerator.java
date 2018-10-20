@@ -1,7 +1,7 @@
 package edu.bu.cs665.util;
 
 import edu.bu.cs665.dto.persons.CitizenStatus;
-import edu.bu.cs665.dto.persons.Department;
+import edu.bu.cs665.dto.persons.DepartmentType;
 import edu.bu.cs665.dto.persons.Employee;
 import edu.bu.cs665.dto.persons.Employee.EmployeeBuilder;
 import edu.bu.cs665.dto.persons.EmploymentRole;
@@ -24,7 +24,8 @@ public class EmployeeGenerator {
         .setAddress(dataFactory.getAddress())
         .setCitizenStatus(
             CitizenStatus.values()[dataFactory.getNumberUpTo(CitizenStatus.values().length)])
-        .setDepartment(Department.values()[dataFactory.getNumberUpTo(Department.values().length)])
+        .setDepartmentType(
+            DepartmentType.values()[dataFactory.getNumberUpTo(DepartmentType.values().length)])
         .setEmploymentRole(
             EmploymentRole.values()[dataFactory.getNumberUpTo(EmploymentRole.values().length)])
         .setFirstName(dataFactory.getFirstName())

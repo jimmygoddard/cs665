@@ -1,0 +1,146 @@
+package edu.bu.cs665.dto;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+public class Invoice implements Payable {
+  private static int ID = 0;
+
+  private final int id;
+  private LocalDate createdDate;
+  private LocalDate dueDate;
+  private String toAddress;
+  private String fromAddress;
+  private List<LineItem> lineItems = new ArrayList<>();
+
+  public Invoice() {
+    this.id = ID++;
+  }
+
+  public Invoice(
+      final LocalDate createdDate,
+      final LocalDate dueDate,
+      final String toAddress,
+      final String fromAddress) {
+    this();
+    this.createdDate = createdDate;
+    this.dueDate = dueDate;
+    this.toAddress = toAddress;
+    this.fromAddress = fromAddress;
+  }
+
+  public int getId() {
+    return this.id;
+  }
+
+  public LocalDate getCreatedDate() {
+    return createdDate;
+  }
+
+  public void setCreatedDate(final LocalDate createdDate) {
+    this.createdDate = createdDate;
+  }
+
+  public LocalDate getDueDate() {
+    return dueDate;
+  }
+
+  public void setDueDate(final LocalDate dueDate) {
+    this.dueDate = dueDate;
+  }
+
+  public String getToAddress() {
+    return toAddress;
+  }
+
+  public void setToAddress(final String toAddress) {
+    this.toAddress = toAddress;
+  }
+
+  public String getFromAddress() {
+    return fromAddress;
+  }
+
+  public void setFromAddress(final String fromAddress) {
+    this.fromAddress = fromAddress;
+  }
+
+  public List<LineItem> getLineItems() {
+    return lineItems;
+  }
+
+  public void setLineItems(final List<LineItem> lineItems) {
+    this.lineItems = lineItems;
+  }
+
+  public void addLineItem(final LineItem lineItem) {
+    this.lineItems.add(lineItem);
+  }
+
+  @Override
+  public double getBalance() {
+    return getLineItems().stream().mapToDouble(LineItem::getBalance).sum();
+  }
+
+  @Override
+  public double payBalance(double payment) {
+    for (final LineItem lineItem : lineItems) {
+      final double balance = lineItem.getBalance();
+      if (balance > 0) {
+        System.out.println("Paying " + payment + " against " + balance);
+        payment = lineItem.payBalance(payment);
+        if (payment > 0) { // payment was greater than balance
+          System.out.println("Payment remaining: " + payment);
+        } else {
+          return 0;
+        }
+      }
+    }
+    return payment;
+  }
+
+  @Override
+  public boolean equals(final Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof Invoice)) {
+      return false;
+    }
+    final Invoice invoice = (Invoice) o;
+    return getId() == invoice.getId()
+        && Objects.equals(getCreatedDate(), invoice.getCreatedDate())
+        && Objects.equals(getDueDate(), invoice.getDueDate())
+        && Objects.equals(getToAddress(), invoice.getToAddress())
+        && Objects.equals(getFromAddress(), invoice.getFromAddress())
+        && Objects.equals(getLineItems(), invoice.getLineItems());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        getId(), getCreatedDate(), getDueDate(), getToAddress(), getFromAddress(), getLineItems());
+  }
+
+  @Override
+  public String toString() {
+    return "Invoice{"
+        + "id="
+        + id
+        + ", createdDate="
+        + createdDate
+        + ", dueDate="
+        + dueDate
+        + ", toAddress='"
+        + toAddress
+        + '\''
+        + ", fromAddress='"
+        + fromAddress
+        + '\''
+        + ", lineItems="
+        + lineItems
+        + '}';
+  }
+}

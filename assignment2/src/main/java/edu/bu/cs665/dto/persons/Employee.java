@@ -3,6 +3,7 @@ package edu.bu.cs665.dto.persons;
 import java.time.LocalDate;
 
 public class Employee {
+  private static final int ID = 0;
 
   private String firstName;
   private String lastName;
@@ -10,12 +11,12 @@ public class Employee {
   private int id;
   private String address;
   private String title;
-  private int salary;
+  private double salary;
   private LocalDate startDate;
   private CitizenStatus citizenStatus;
   private Gender gender;
   private WorkLocation workLocation;
-  private Department department;
+  private DepartmentType departmentType;
   private EmploymentRole employmentRole;
 
   private Employee(
@@ -25,12 +26,12 @@ public class Employee {
       final int id,
       final String address,
       final String title,
-      final int salary,
+      final double salary,
       final LocalDate startDate,
       final CitizenStatus citizenStatus,
       final Gender gender,
       final WorkLocation workLocation,
-      final Department department,
+      final DepartmentType departmentType,
       final EmploymentRole employmentRole) {
     this.firstName = firstName;
     this.lastName = lastName;
@@ -43,7 +44,7 @@ public class Employee {
     this.citizenStatus = citizenStatus;
     this.gender = gender;
     this.workLocation = workLocation;
-    this.department = department;
+    this.departmentType = departmentType;
     this.employmentRole = employmentRole;
   }
 
@@ -72,7 +73,7 @@ public class Employee {
   }
 
   public int getId() {
-    return id;
+    return this.id;
   }
 
   public void setId(final int id) {
@@ -95,11 +96,11 @@ public class Employee {
     this.title = title;
   }
 
-  public int getSalary() {
+  public double getSalary() {
     return salary;
   }
 
-  public void setSalary(final int salary) {
+  public void setSalary(final double salary) {
     this.salary = salary;
   }
 
@@ -135,12 +136,12 @@ public class Employee {
     this.workLocation = workLocation;
   }
 
-  public Department getDepartment() {
-    return department;
+  public DepartmentType getDepartmentType() {
+    return departmentType;
   }
 
-  public void setDepartment(final Department department) {
-    this.department = department;
+  public void setDepartmentType(final DepartmentType departmentType) {
+    this.departmentType = departmentType;
   }
 
   public EmploymentRole getEmploymentRole() {
@@ -181,8 +182,8 @@ public class Employee {
         + gender
         + ", workLocation="
         + workLocation
-        + ", department="
-        + department
+        + ", departmentType="
+        + departmentType
         + ", employmentRole="
         + employmentRole
         + '}';
@@ -195,12 +196,12 @@ public class Employee {
     private int id;
     private String address;
     private String title;
-    private int salary;
+    private double salary;
     private LocalDate startDate;
     private CitizenStatus citizenStatus;
     private Gender gender;
     private WorkLocation workLocation;
-    private Department department;
+    private DepartmentType departmentType;
     private EmploymentRole employmentRole;
 
     public EmployeeBuilder setFirstName(final String firstName) {
@@ -233,7 +234,7 @@ public class Employee {
       return this;
     }
 
-    public EmployeeBuilder setSalary(final int salary) {
+    public EmployeeBuilder setSalary(final double salary) {
       this.salary = salary;
       return this;
     }
@@ -258,8 +259,8 @@ public class Employee {
       return this;
     }
 
-    public EmployeeBuilder setDepartment(final Department department) {
-      this.department = department;
+    public EmployeeBuilder setDepartmentType(final DepartmentType departmentType) {
+      this.departmentType = departmentType;
       return this;
     }
 
@@ -281,7 +282,7 @@ public class Employee {
           citizenStatus,
           gender,
           workLocation,
-          department,
+          departmentType,
           employmentRole);
     }
   }

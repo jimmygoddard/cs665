@@ -1,22 +1,34 @@
 package edu.bu.cs665.dto;
 
-import java.time.LocalDate;
+import edu.bu.cs665.util.TestDataGenerator;
 import org.junit.Assert;
 import org.junit.Test;
 
 public class InvoiceTest {
 
   @Test
-  public void payBalance() {
-    final Invoice foo = new Invoice(LocalDate.now(), LocalDate.now(), "to", "from");
-    final LineItem lineItemOne = new LineItem("description", 1, 10.00);
-    final LineItem lineItemTwo = new LineItem("description", 2, 12.00);
-    final LineItem lineItemThree = new LineItem("description", 3, 15.00);
-    // total = 79
-    foo.addLineItem(lineItemOne);
-    foo.addLineItem(lineItemTwo);
-    foo.addLineItem(lineItemThree);
-    final double actualChange = foo.payBalance(79);
+  public void payBalanceFullBalanceTest() {
+    final Invoice invoice = TestDataGenerator.generateTestInvoice();
+    final double actualChange = invoice.payBalance(TestDataGenerator.TOTAL_BALANCE);
     Assert.assertEquals(0, actualChange, .001);
+    Assert.assertEquals(0, invoice.getBalance(), .001);
+  }
+
+  @Test
+  public void payBalancePartialBalanceTest() {
+    final Invoice invoice = TestDataGenerator.generateTestInvoice();
+    final int payment = (int) (TestDataGenerator.TOTAL_BALANCE / 2);
+    final double actualChange = invoice.payBalance(payment);
+    Assert.assertEquals(0, actualChange, .001);
+    Assert.assertEquals(TestDataGenerator.TOTAL_BALANCE - payment, invoice.getBalance(), .001);
+  }
+
+  @Test
+  public void payBalancePayHigherThanBalanceTest() {
+    final Invoice invoice = TestDataGenerator.generateTestInvoice();
+    final int payment = (int) (TestDataGenerator.TOTAL_BALANCE * 2);
+    final double actualChange = invoice.payBalance(payment);
+    Assert.assertEquals(payment - TestDataGenerator.TOTAL_BALANCE, actualChange, .001);
+    Assert.assertEquals(0, invoice.getBalance(), .001);
   }
 }

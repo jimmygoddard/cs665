@@ -1,23 +1,27 @@
 package edu.bu.cs665.dto.persons;
 
+import edu.bu.cs665.dto.Invoice;
+import edu.bu.cs665.dto.Payable;
+import edu.bu.cs665.exception.ExceededAllowanceException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Employee {
-  private static final int ID = 0;
-
-  private String firstName;
-  private String lastName;
-  private String middleInitial;
+public class Employee implements Payable {
+  private final String firstName;
+  private final String lastName;
+  private final String middleInitial;
   private int id;
-  private String address;
-  private String title;
-  private double salary;
-  private LocalDate startDate;
-  private CitizenStatus citizenStatus;
-  private Gender gender;
-  private WorkLocation workLocation;
-  private DepartmentType departmentType;
+  private final String address;
+  private final String title;
+  private final double salary;
+  private final LocalDate startDate;
+  private final CitizenStatus citizenStatus;
+  private final Gender gender;
+  private final WorkLocation workLocation;
+  private final DepartmentType departmentType;
   private EmploymentRole employmentRole;
+  private final List<Invoice> expenses = new ArrayList<>();
 
   private Employee(
       final String firstName,
@@ -52,26 +56,6 @@ public class Employee {
     return firstName;
   }
 
-  public void setFirstName(final String firstName) {
-    this.firstName = firstName;
-  }
-
-  public String getLastName() {
-    return lastName;
-  }
-
-  public void setLastName(final String lastName) {
-    this.lastName = lastName;
-  }
-
-  public String getMiddleInitial() {
-    return middleInitial;
-  }
-
-  public void setMiddleInitial(final String middleInitial) {
-    this.middleInitial = middleInitial;
-  }
-
   public int getId() {
     return this.id;
   }
@@ -80,72 +64,24 @@ public class Employee {
     this.id = id;
   }
 
-  public String getAddress() {
-    return address;
-  }
-
-  public void setAddress(final String address) {
-    this.address = address;
-  }
-
-  public String getTitle() {
-    return title;
-  }
-
-  public void setTitle(final String title) {
-    this.title = title;
-  }
-
-  public double getSalary() {
-    return salary;
-  }
-
-  public void setSalary(final double salary) {
-    this.salary = salary;
-  }
-
   public LocalDate getStartDate() {
     return startDate;
-  }
-
-  public void setStartDate(final LocalDate startDate) {
-    this.startDate = startDate;
   }
 
   public CitizenStatus getCitizenStatus() {
     return citizenStatus;
   }
 
-  public void setCitizenStatus(final CitizenStatus citizenStatus) {
-    this.citizenStatus = citizenStatus;
-  }
-
   public Gender getGender() {
     return gender;
   }
 
-  public void setGender(final Gender gender) {
-    this.gender = gender;
+  private List<Invoice> getExpenses() {
+    return this.expenses;
   }
 
-  public WorkLocation getWorkLocation() {
-    return workLocation;
-  }
-
-  public void setWorkLocation(final WorkLocation workLocation) {
-    this.workLocation = workLocation;
-  }
-
-  public DepartmentType getDepartmentType() {
-    return departmentType;
-  }
-
-  public void setDepartmentType(final DepartmentType departmentType) {
-    this.departmentType = departmentType;
-  }
-
-  public EmploymentRole getEmploymentRole() {
-    return employmentRole;
+  public void addExpense(final Invoice expense) {
+    this.expenses.add(expense);
   }
 
   public void setEmploymentRole(final EmploymentRole employmentRole) {
@@ -187,6 +123,33 @@ public class Employee {
         + ", employmentRole="
         + employmentRole
         + '}';
+  }
+
+  @Override
+  public double getBalance() {
+    return getExpenses().stream().mapToDouble(Invoice::getBalance).sum();
+  }
+
+  @Override
+  public double payBalance(double payment) throws ExceededAllowanceException {
+    final double allowableAmount = EmploymentRole.getTotalAllowance(this.employmentRole);
+    if (payment > allowableAmount) {
+      throw new ExceededAllowanceException(
+          "Payment "
+              + payment
+              + " is higher than the allowable expense limit for employment role "
+              + this.employmentRole);
+    }
+    for (final Invoice expense : getExpenses()) {
+      final double balance = expense.getBalance();
+      if (balance > 0) {
+        payment = expense.payBalance(payment);
+        if (payment <= 0) { // payment was less than balance
+          return 0;
+        }
+      }
+    }
+    return payment;
   }
 
   public static class EmployeeBuilder {

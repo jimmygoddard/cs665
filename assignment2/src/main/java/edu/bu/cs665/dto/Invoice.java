@@ -86,14 +86,11 @@ public class Invoice implements Payable {
 
   @Override
   public double payBalance(double payment) {
-    for (final LineItem lineItem : lineItems) {
+    for (final LineItem lineItem : getLineItems()) {
       final double balance = lineItem.getBalance();
       if (balance > 0) {
-        System.out.println("Paying " + payment + " against " + balance);
         payment = lineItem.payBalance(payment);
-        if (payment > 0) { // payment was greater than balance
-          System.out.println("Payment remaining: " + payment);
-        } else {
+        if (payment <= 0) { // payment was less than balance
           return 0;
         }
       }

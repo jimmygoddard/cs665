@@ -2,8 +2,8 @@ package edu.bu.cs665.service;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
-import edu.bu.cs665.dao.PersonsDao;
-import edu.bu.cs665.dao.PersonsDaoImpl;
+import edu.bu.cs665.dao.HRDao;
+import edu.bu.cs665.dao.HRDaoImpl;
 import edu.bu.cs665.dto.persons.CitizenStatus;
 import edu.bu.cs665.dto.persons.Employee;
 import edu.bu.cs665.dto.persons.Gender;
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class HRServiceImpl implements HRService {
-  private final PersonsDao personsDao = PersonsDaoImpl.getPersonsDao();
+  private final HRDao hrDao = HRDaoImpl.getPersonsDao();
 
   private HRServiceImpl() {}
 
@@ -27,23 +27,23 @@ public class HRServiceImpl implements HRService {
 
   @Override
   public void addEmployee(final Employee employee) {
-    personsDao.addEmployee(employee);
+    hrDao.addEmployee(employee);
   }
 
   @Override
   public void updateEmployee(final int id, final Employee employee)
       throws EmployeeNotFoundException {
-    personsDao.updateEmployee(id, employee);
+    hrDao.updateEmployee(id, employee);
   }
 
   @Override
   public void deleteEmployee(final int id) throws EmployeeNotFoundException {
-    personsDao.deleteEmployee(id);
+    hrDao.deleteEmployee(id);
   }
 
   @Override
   public List<Employee> getEmployees() {
-    return personsDao.getEmployees();
+    return hrDao.getEmployees();
   }
 
   @Override

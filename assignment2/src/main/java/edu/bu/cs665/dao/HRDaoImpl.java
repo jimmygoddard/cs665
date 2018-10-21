@@ -4,17 +4,17 @@ import edu.bu.cs665.dto.persons.Employee;
 import edu.bu.cs665.exception.EmployeeNotFoundException;
 import java.util.List;
 
-public class PersonsDaoImpl implements PersonsDao {
+public class HRDaoImpl implements HRDao {
 
   private final Persistence persistence = PersistenceImpl.getPersistence();
 
-  private PersonsDaoImpl() {}
+  private HRDaoImpl() {}
 
   private static class PersonsDaoImplHolder {
-    private static final PersonsDao instance = new PersonsDaoImpl();
+    private static final HRDao instance = new HRDaoImpl();
   }
 
-  public static PersonsDao getPersonsDao() {
+  public static HRDao getPersonsDao() {
     return PersonsDaoImplHolder.instance;
   }
 

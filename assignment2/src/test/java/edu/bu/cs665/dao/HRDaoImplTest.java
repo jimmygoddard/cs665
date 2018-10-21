@@ -9,10 +9,10 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class PersonsDaoImplTest {
+public class HRDaoImplTest {
 
   private static final String FIRST_NAME = "TEST";
-  private final PersonsDao personsDao = PersonsDaoImpl.getPersonsDao();
+  private final HRDao hrDao = HRDaoImpl.getPersonsDao();
   private final Persistence persistence = PersistenceImpl.getPersistence();
 
   @Before
@@ -23,12 +23,12 @@ public class PersonsDaoImplTest {
   /**
    * getPersonsDao singleton test
    *
-   * <p>Test that only a single instance of PersonsDao can be retrieved
+   * <p>Test that only a single instance of hrDao can be retrieved
    */
   @Test
   public void getPersonsDao() {
-    final PersonsDao instanceOne = PersonsDaoImpl.getPersonsDao();
-    final PersonsDao instanceTwo = PersonsDaoImpl.getPersonsDao();
+    final HRDao instanceOne = HRDaoImpl.getPersonsDao();
+    final HRDao instanceTwo = HRDaoImpl.getPersonsDao();
     Assert.assertSame(instanceOne, instanceTwo);
   }
 
@@ -44,11 +44,11 @@ public class PersonsDaoImplTest {
   @Test
   public void addEmployee() {
     final Employee newEmployee = EmployeeGenerator.generateEmployee();
-    final int originalSize = personsDao.getEmployees().size();
-    personsDao.addEmployee(newEmployee);
-    Assert.assertEquals(originalSize + 1, personsDao.getEmployees().size());
+    final int originalSize = hrDao.getEmployees().size();
+    hrDao.addEmployee(newEmployee);
+    Assert.assertEquals(originalSize + 1, hrDao.getEmployees().size());
     Assert.assertTrue(
-        personsDao
+        hrDao
             .getEmployees()
             .stream()
             .anyMatch(employee -> employee.getId() == newEmployee.getId()));
@@ -72,20 +72,20 @@ public class PersonsDaoImplTest {
    */
   @Test
   public void updateEmployee() throws EmployeeNotFoundException {
-    final int idToUpdate = personsDao.getEmployees().get(0).getId();
-    final int expectedSize = personsDao.getEmployees().size();
+    final int idToUpdate = hrDao.getEmployees().get(0).getId();
+    final int expectedSize = hrDao.getEmployees().size();
     final Employee updatedEmployee =
         new EmployeeBuilder().setFirstName(FIRST_NAME).setId(idToUpdate).createEmployee();
     Assert.assertFalse(
-        personsDao
+        hrDao
             .getEmployees()
             .stream()
             .anyMatch(employee -> employee.getFirstName().equals(FIRST_NAME)));
-    personsDao.updateEmployee(idToUpdate, updatedEmployee);
-    final int actualSize = personsDao.getEmployees().size();
+    hrDao.updateEmployee(idToUpdate, updatedEmployee);
+    final int actualSize = hrDao.getEmployees().size();
     Assert.assertEquals(expectedSize, actualSize);
     Assert.assertTrue(
-        personsDao
+        hrDao
             .getEmployees()
             .stream()
             .anyMatch(employee -> employee.getFirstName().equals(FIRST_NAME)));
@@ -108,15 +108,15 @@ public class PersonsDaoImplTest {
    */
   @Test
   public void deleteEmployee() throws EmployeeNotFoundException {
-    final int expectedSize = personsDao.getEmployees().size() - 1;
-    final int idToDelete = personsDao.getEmployees().get(0).getId();
+    final int expectedSize = hrDao.getEmployees().size() - 1;
+    final int idToDelete = hrDao.getEmployees().get(0).getId();
     Assert.assertTrue(
-        personsDao.getEmployees().stream().anyMatch(employee -> employee.getId() == idToDelete));
-    personsDao.deleteEmployee(idToDelete);
-    final int actualSize = personsDao.getEmployees().size();
+        hrDao.getEmployees().stream().anyMatch(employee -> employee.getId() == idToDelete));
+    hrDao.deleteEmployee(idToDelete);
+    final int actualSize = hrDao.getEmployees().size();
     Assert.assertEquals(expectedSize, actualSize);
     Assert.assertFalse(
-        personsDao.getEmployees().stream().anyMatch(employee -> employee.getId() == idToDelete));
+        hrDao.getEmployees().stream().anyMatch(employee -> employee.getId() == idToDelete));
   }
 
   /**
@@ -131,7 +131,7 @@ public class PersonsDaoImplTest {
   @Test
   public void getEmployees() {
     final List<Employee> expectedEmployees = persistence.getEmployees();
-    final List<Employee> actualEmployees = personsDao.getEmployees();
+    final List<Employee> actualEmployees = hrDao.getEmployees();
     Assert.assertEquals(expectedEmployees, actualEmployees);
   }
 }

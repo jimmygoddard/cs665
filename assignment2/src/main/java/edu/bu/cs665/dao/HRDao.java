@@ -4,7 +4,7 @@ import edu.bu.cs665.dto.persons.Employee;
 import edu.bu.cs665.exception.EmployeeNotFoundException;
 import java.util.List;
 
-public interface PersonsDao {
+public interface HRDao {
 
   /**
    * Add a new employee to be persisted

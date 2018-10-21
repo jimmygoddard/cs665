@@ -4,7 +4,7 @@ import edu.bu.cs665.dto.persons.Employee;
 import edu.bu.cs665.exception.EmployeeNotFoundException;
 import java.util.List;
 
-public interface PersonsService {
+public interface HRService {
 
   /**
    * Add a new employee

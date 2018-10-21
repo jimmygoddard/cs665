@@ -12,16 +12,16 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class PersonsServiceImpl implements PersonsService {
+public class HRServiceImpl implements HRService {
   private final PersonsDao personsDao = PersonsDaoImpl.getPersonsDao();
 
-  private PersonsServiceImpl() {}
+  private HRServiceImpl() {}
 
   private static class PersonsServiceImplHolder {
-    private static final PersonsService instance = new PersonsServiceImpl();
+    private static final HRService instance = new HRServiceImpl();
   }
 
-  public static PersonsService getPersonsService() {
+  public static HRService getPersonsService() {
     return PersonsServiceImplHolder.instance;
   }
 

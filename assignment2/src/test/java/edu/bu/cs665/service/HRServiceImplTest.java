@@ -15,12 +15,12 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class PersonsServiceImplTest {
+public class HRServiceImplTest {
 
   private static final String FIRST_NAME = "TEST";
   private static final int ID = 12345;
   private static final int TENURE = 10;
-  private final PersonsService personsService = PersonsServiceImpl.getPersonsService();
+  private final HRService HRService = HRServiceImpl.getPersonsService();
   private final Persistence persistence = PersistenceImpl.getPersistence();
 
   @Before
@@ -31,12 +31,12 @@ public class PersonsServiceImplTest {
   /**
    * getPersonsService singleton test
    *
-   * <p>Test that only a single instance of PersonsService can be retrieved
+   * <p>Test that only a single instance of HRService can be retrieved
    */
   @Test
   public void getPersonsService() {
-    final PersonsService instanceOne = PersonsServiceImpl.getPersonsService();
-    final PersonsService instanceTwo = PersonsServiceImpl.getPersonsService();
+    final HRService instanceOne = HRServiceImpl.getPersonsService();
+    final HRService instanceTwo = HRServiceImpl.getPersonsService();
     Assert.assertSame(instanceOne, instanceTwo);
   }
 
@@ -51,20 +51,20 @@ public class PersonsServiceImplTest {
    */
   @Test
   public void addEmployee() {
-    final int expectedSize = personsService.getEmployees().size() + 1;
+    final int expectedSize = HRService.getEmployees().size() + 1;
     final Employee newEmployee =
         new Employee.EmployeeBuilder().setFirstName(FIRST_NAME).setId(ID).createEmployee();
     Assert.assertFalse(
-        personsService
+        HRService
             .getEmployees()
             .stream()
             .anyMatch(
                 employee -> employee.getId() == ID && employee.getFirstName().equals(FIRST_NAME)));
-    personsService.addEmployee(newEmployee);
-    final int actualSize = personsService.getEmployees().size();
+    HRService.addEmployee(newEmployee);
+    final int actualSize = HRService.getEmployees().size();
     Assert.assertEquals(expectedSize, actualSize);
     Assert.assertTrue(
-        personsService
+        HRService
             .getEmployees()
             .stream()
             .anyMatch(
@@ -89,20 +89,20 @@ public class PersonsServiceImplTest {
    */
   @Test
   public void updateEmployee() throws EmployeeNotFoundException {
-    final int idToUpdate = personsService.getEmployees().get(0).getId();
-    final int expectedSize = personsService.getEmployees().size();
+    final int idToUpdate = HRService.getEmployees().get(0).getId();
+    final int expectedSize = HRService.getEmployees().size();
     final Employee updatedEmployee =
         new Employee.EmployeeBuilder().setFirstName(FIRST_NAME).setId(idToUpdate).createEmployee();
     Assert.assertFalse(
-        personsService
+        HRService
             .getEmployees()
             .stream()
             .anyMatch(employee -> employee.getFirstName().equals(FIRST_NAME)));
-    personsService.updateEmployee(idToUpdate, updatedEmployee);
-    final int actualSize = personsService.getEmployees().size();
+    HRService.updateEmployee(idToUpdate, updatedEmployee);
+    final int actualSize = HRService.getEmployees().size();
     Assert.assertEquals(expectedSize, actualSize);
     Assert.assertTrue(
-        personsService
+        HRService
             .getEmployees()
             .stream()
             .anyMatch(employee -> employee.getFirstName().equals(FIRST_NAME)));
@@ -125,18 +125,18 @@ public class PersonsServiceImplTest {
    */
   @Test
   public void deleteEmployee() throws EmployeeNotFoundException {
-    final int expectedSize = personsService.getEmployees().size() - 1;
-    final int idToDelete = personsService.getEmployees().get(0).getId();
+    final int expectedSize = HRService.getEmployees().size() - 1;
+    final int idToDelete = HRService.getEmployees().get(0).getId();
     Assert.assertTrue(
-        personsService
+        HRService
             .getEmployees()
             .stream()
             .anyMatch(employee -> employee.getId() == idToDelete));
-    personsService.deleteEmployee(idToDelete);
-    final int actualSize = personsService.getEmployees().size();
+    HRService.deleteEmployee(idToDelete);
+    final int actualSize = HRService.getEmployees().size();
     Assert.assertEquals(expectedSize, actualSize);
     Assert.assertFalse(
-        personsService
+        HRService
             .getEmployees()
             .stream()
             .anyMatch(employee -> employee.getId() == idToDelete));
@@ -154,7 +154,7 @@ public class PersonsServiceImplTest {
   @Test
   public void getEmployees() {
     final List<Employee> expectedEmployees = persistence.getEmployees();
-    final List<Employee> actualEmployees = personsService.getEmployees();
+    final List<Employee> actualEmployees = HRService.getEmployees();
     Assert.assertEquals(expectedEmployees, actualEmployees);
   }
 
@@ -174,7 +174,7 @@ public class PersonsServiceImplTest {
     final Employee citizen =
         new Employee.EmployeeBuilder().setCitizenStatus(CitizenStatus.CITIZEN).createEmployee();
     persistence.setEmployees(Arrays.asList(visa, citizen));
-    final List<Employee> citizens = personsService.getEmployeesFromUS();
+    final List<Employee> citizens = HRService.getEmployeesFromUS();
     Assert.assertEquals(Collections.singletonList(citizen), citizens);
   }
 
@@ -194,7 +194,7 @@ public class PersonsServiceImplTest {
     final Employee citizen =
         new Employee.EmployeeBuilder().setCitizenStatus(CitizenStatus.CITIZEN).createEmployee();
     persistence.setEmployees(Arrays.asList(visa, citizen));
-    final List<Employee> visas = personsService.getEmployeesNotInUS();
+    final List<Employee> visas = HRService.getEmployeesNotInUS();
     Assert.assertEquals(Collections.singletonList(visa), visas);
   }
 
@@ -213,7 +213,7 @@ public class PersonsServiceImplTest {
     final Employee female =
         new Employee.EmployeeBuilder().setGender(Gender.FEMALE).createEmployee();
     persistence.setEmployees(Arrays.asList(male, female));
-    final List<Employee> males = personsService.getMaleEmployees();
+    final List<Employee> males = HRService.getMaleEmployees();
     Assert.assertEquals(Collections.singletonList(male), males);
   }
 
@@ -232,7 +232,7 @@ public class PersonsServiceImplTest {
     final Employee female =
         new Employee.EmployeeBuilder().setGender(Gender.FEMALE).createEmployee();
     persistence.setEmployees(Arrays.asList(male, female));
-    final List<Employee> females = personsService.getFemaleEmployees();
+    final List<Employee> females = HRService.getFemaleEmployees();
     Assert.assertEquals(Collections.singletonList(female), females);
   }
 
@@ -250,7 +250,7 @@ public class PersonsServiceImplTest {
             .setStartDate(LocalDate.now().minusDays(TENURE))
             .setId(ID)
             .createEmployee();
-    final long actualTenure = personsService.getTenureInDaysForEmployee(employee);
+    final long actualTenure = HRService.getTenureInDaysForEmployee(employee);
     Assert.assertEquals(TENURE, actualTenure);
   }
 }

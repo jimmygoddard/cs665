@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class App {
 
-  private static final HRService HR_SERVICE = HRServiceImpl.getPersonsService();
+  private static final HRService HR_SERVICE = HRServiceImpl.getHRService();
   private static final String CREATE_MENU_ITEM = "Create";
   private static final String UPDATE_MENU_ITEM = "Update";
   private static final String DELETE_MENU_ITEM = "Delete";

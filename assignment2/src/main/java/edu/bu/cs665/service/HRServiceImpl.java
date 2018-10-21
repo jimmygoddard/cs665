@@ -21,7 +21,7 @@ public class HRServiceImpl implements HRService {
     private static final HRService instance = new HRServiceImpl();
   }
 
-  public static HRService getPersonsService() {
+  public static HRService getHRService() {
     return PersonsServiceImplHolder.instance;
   }
 

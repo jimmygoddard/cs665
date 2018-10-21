@@ -20,7 +20,7 @@ public class HRServiceImplTest {
   private static final String FIRST_NAME = "TEST";
   private static final int ID = 12345;
   private static final int TENURE = 10;
-  private final HRService HRService = HRServiceImpl.getPersonsService();
+  private final HRService HRService = HRServiceImpl.getHRService();
   private final Persistence persistence = PersistenceImpl.getPersistence();
 
   @Before
@@ -29,14 +29,14 @@ public class HRServiceImplTest {
   }
 
   /**
-   * getPersonsService singleton test
+   * getHRService singleton test
    *
    * <p>Test that only a single instance of HRService can be retrieved
    */
   @Test
   public void getPersonsService() {
-    final HRService instanceOne = HRServiceImpl.getPersonsService();
-    final HRService instanceTwo = HRServiceImpl.getPersonsService();
+    final HRService instanceOne = HRServiceImpl.getHRService();
+    final HRService instanceTwo = HRServiceImpl.getHRService();
     Assert.assertSame(instanceOne, instanceTwo);
   }
 

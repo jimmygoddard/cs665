@@ -10,12 +10,12 @@ public class HRDaoImpl implements HRDao {
 
   private HRDaoImpl() {}
 
-  private static class PersonsDaoImplHolder {
+  private static class HRDaoImplHolder {
     private static final HRDao instance = new HRDaoImpl();
   }
 
-  public static HRDao getPersonsDao() {
-    return PersonsDaoImplHolder.instance;
+  public static HRDao getHRDao() {
+    return HRDaoImplHolder.instance;
   }
 
   @Override

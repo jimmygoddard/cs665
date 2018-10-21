@@ -34,7 +34,7 @@ public class HRServiceImplTest {
    * <p>Test that only a single instance of HRService can be retrieved
    */
   @Test
-  public void getPersonsService() {
+  public void getHRService() {
     final HRService instanceOne = HRServiceImpl.getHRService();
     final HRService instanceTwo = HRServiceImpl.getHRService();
     Assert.assertSame(instanceOne, instanceTwo);

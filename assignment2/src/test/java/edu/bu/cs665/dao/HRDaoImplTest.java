@@ -12,7 +12,7 @@ import org.junit.Test;
 public class HRDaoImplTest {
 
   private static final String FIRST_NAME = "TEST";
-  private final HRDao hrDao = HRDaoImpl.getPersonsDao();
+  private final HRDao hrDao = HRDaoImpl.getHRDao();
   private final Persistence persistence = PersistenceImpl.getPersistence();
 
   @Before
@@ -21,14 +21,14 @@ public class HRDaoImplTest {
   }
 
   /**
-   * getPersonsDao singleton test
+   * getHRDao singleton test
    *
    * <p>Test that only a single instance of hrDao can be retrieved
    */
   @Test
-  public void getPersonsDao() {
-    final HRDao instanceOne = HRDaoImpl.getPersonsDao();
-    final HRDao instanceTwo = HRDaoImpl.getPersonsDao();
+  public void getHRDao() {
+    final HRDao instanceOne = HRDaoImpl.getHRDao();
+    final HRDao instanceTwo = HRDaoImpl.getHRDao();
     Assert.assertSame(instanceOne, instanceTwo);
   }
 

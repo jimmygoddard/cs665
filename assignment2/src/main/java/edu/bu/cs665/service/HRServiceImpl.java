@@ -13,16 +13,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class HRServiceImpl implements HRService {
-  private final HRDao hrDao = HRDaoImpl.getPersonsDao();
+  private final HRDao hrDao = HRDaoImpl.getHRDao();
 
   private HRServiceImpl() {}
 
-  private static class PersonsServiceImplHolder {
+  private static class HRServiceImplHolder {
     private static final HRService instance = new HRServiceImpl();
   }
 
   public static HRService getHRService() {
-    return PersonsServiceImplHolder.instance;
+    return HRServiceImplHolder.instance;
   }
 
   @Override

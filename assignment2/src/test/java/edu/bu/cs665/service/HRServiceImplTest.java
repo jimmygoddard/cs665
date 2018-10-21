@@ -1,7 +1,7 @@
 package edu.bu.cs665.service;
 
-import edu.bu.cs665.dao.Persistence;
-import edu.bu.cs665.dao.PersistenceImpl;
+import edu.bu.cs665.dao.PersonStore;
+import edu.bu.cs665.dao.PersonStoreImpl;
 import edu.bu.cs665.dto.persons.CitizenStatus;
 import edu.bu.cs665.dto.persons.Employee;
 import edu.bu.cs665.dto.persons.Gender;
@@ -21,11 +21,11 @@ public class HRServiceImplTest {
   private static final int ID = 12345;
   private static final int TENURE = 10;
   private final HRService HRService = HRServiceImpl.getHRService();
-  private final Persistence persistence = PersistenceImpl.getPersistence();
+  private final PersonStore personStore = PersonStoreImpl.getPersistence();
 
   @Before
   public void setUp() {
-    persistence.setEmployees(EmployeeGenerator.generateEmployees(5));
+    personStore.setEmployees(EmployeeGenerator.generateEmployees(5));
   }
 
   /**
@@ -43,7 +43,7 @@ public class HRServiceImplTest {
   /**
    * addEmployee test:
    *
-   * <p>1) Verify that the employee does not already exist in the persistence layer
+   * <p>1) Verify that the employee does not already exist in the personStore layer
    *
    * <p>2) Add a new employee
    *
@@ -145,7 +145,7 @@ public class HRServiceImplTest {
   /**
    * getEmployees test:
    *
-   * <p>1) Retrieve the list of employees from the persistence layer
+   * <p>1) Retrieve the list of employees from the personStore layer
    *
    * <p>2) Retrieve the list of employees from the service layer
    *
@@ -153,7 +153,7 @@ public class HRServiceImplTest {
    */
   @Test
   public void getEmployees() {
-    final List<Employee> expectedEmployees = persistence.getEmployees();
+    final List<Employee> expectedEmployees = personStore.getEmployees();
     final List<Employee> actualEmployees = HRService.getEmployees();
     Assert.assertEquals(expectedEmployees, actualEmployees);
   }
@@ -173,7 +173,7 @@ public class HRServiceImplTest {
         new Employee.EmployeeBuilder().setCitizenStatus(CitizenStatus.VISA).createEmployee();
     final Employee citizen =
         new Employee.EmployeeBuilder().setCitizenStatus(CitizenStatus.CITIZEN).createEmployee();
-    persistence.setEmployees(Arrays.asList(visa, citizen));
+    personStore.setEmployees(Arrays.asList(visa, citizen));
     final List<Employee> citizens = HRService.getEmployeesFromUS();
     Assert.assertEquals(Collections.singletonList(citizen), citizens);
   }
@@ -193,7 +193,7 @@ public class HRServiceImplTest {
         new Employee.EmployeeBuilder().setCitizenStatus(CitizenStatus.VISA).createEmployee();
     final Employee citizen =
         new Employee.EmployeeBuilder().setCitizenStatus(CitizenStatus.CITIZEN).createEmployee();
-    persistence.setEmployees(Arrays.asList(visa, citizen));
+    personStore.setEmployees(Arrays.asList(visa, citizen));
     final List<Employee> visas = HRService.getEmployeesNotInUS();
     Assert.assertEquals(Collections.singletonList(visa), visas);
   }
@@ -212,7 +212,7 @@ public class HRServiceImplTest {
     final Employee male = new Employee.EmployeeBuilder().setGender(Gender.MALE).createEmployee();
     final Employee female =
         new Employee.EmployeeBuilder().setGender(Gender.FEMALE).createEmployee();
-    persistence.setEmployees(Arrays.asList(male, female));
+    personStore.setEmployees(Arrays.asList(male, female));
     final List<Employee> males = HRService.getMaleEmployees();
     Assert.assertEquals(Collections.singletonList(male), males);
   }
@@ -231,7 +231,7 @@ public class HRServiceImplTest {
     final Employee male = new Employee.EmployeeBuilder().setGender(Gender.MALE).createEmployee();
     final Employee female =
         new Employee.EmployeeBuilder().setGender(Gender.FEMALE).createEmployee();
-    persistence.setEmployees(Arrays.asList(male, female));
+    personStore.setEmployees(Arrays.asList(male, female));
     final List<Employee> females = HRService.getFemaleEmployees();
     Assert.assertEquals(Collections.singletonList(female), females);
   }

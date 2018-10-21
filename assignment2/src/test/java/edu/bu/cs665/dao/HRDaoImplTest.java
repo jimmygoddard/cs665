@@ -13,11 +13,11 @@ public class HRDaoImplTest {
 
   private static final String FIRST_NAME = "TEST";
   private final HRDao hrDao = HRDaoImpl.getHRDao();
-  private final Persistence persistence = PersistenceImpl.getPersistence();
+  private final PersonStore personStore = PersonStoreImpl.getPersistence();
 
   @Before
   public void setUp() {
-    persistence.setEmployees(EmployeeGenerator.generateEmployees(5));
+    personStore.setEmployees(EmployeeGenerator.generateEmployees(5));
   }
 
   /**
@@ -35,7 +35,7 @@ public class HRDaoImplTest {
   /**
    * addEmployee test:
    *
-   * <p>1) Verify that the employee does not already exist in the persistence layer
+   * <p>1) Verify that the employee does not already exist in the personStore layer
    *
    * <p>2) Add a new employee
    *
@@ -122,7 +122,7 @@ public class HRDaoImplTest {
   /**
    * getEmployees test:
    *
-   * <p>1) Retrieve the list of employees from the persistence layer
+   * <p>1) Retrieve the list of employees from the personStore layer
    *
    * <p>2) Retrieve the list of employees from the dao layer
    *
@@ -130,7 +130,7 @@ public class HRDaoImplTest {
    */
   @Test
   public void getEmployees() {
-    final List<Employee> expectedEmployees = persistence.getEmployees();
+    final List<Employee> expectedEmployees = personStore.getEmployees();
     final List<Employee> actualEmployees = hrDao.getEmployees();
     Assert.assertEquals(expectedEmployees, actualEmployees);
   }

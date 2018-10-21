@@ -6,7 +6,7 @@ import java.util.List;
 
 public class HRDaoImpl implements HRDao {
 
-  private final Persistence persistence = PersistenceImpl.getPersistence();
+  private final PersonStore personStore = PersonStoreImpl.getPersistence();
 
   private HRDaoImpl() {}
 
@@ -22,7 +22,7 @@ public class HRDaoImpl implements HRDao {
   public void addEmployee(final Employee employee) {
     final List<Employee> employees = getEmployees();
     employees.add(employee);
-    persistence.setEmployees(employees);
+    personStore.setEmployees(employees);
   }
 
   @Override
@@ -32,7 +32,7 @@ public class HRDaoImpl implements HRDao {
     final List<Employee> employees = getEmployees();
     employee.setId(id);
     employees.set(i, employee);
-    persistence.setEmployees(employees);
+    personStore.setEmployees(employees);
   }
 
   @Override
@@ -40,12 +40,12 @@ public class HRDaoImpl implements HRDao {
     final int i = getIndexOfEmployeeById(id);
     final List<Employee> employees = getEmployees();
     employees.remove(i);
-    persistence.setEmployees(employees);
+    personStore.setEmployees(employees);
   }
 
   @Override
   public List<Employee> getEmployees() {
-    return persistence.getEmployees();
+    return personStore.getEmployees();
   }
 
   private int getIndexOfEmployeeById(final int id) throws EmployeeNotFoundException {

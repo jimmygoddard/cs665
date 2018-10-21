@@ -4,16 +4,16 @@ import edu.bu.cs665.dto.persons.Employee;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PersistenceImpl implements Persistence {
+public class PersonStoreImpl implements PersonStore {
   private List<Employee> employees = new ArrayList<>();
 
-  private PersistenceImpl() {}
+  private PersonStoreImpl() {}
 
   private static class PersistenceImplHolder {
-    private static final Persistence instance = new PersistenceImpl();
+    private static final PersonStore instance = new PersonStoreImpl();
   }
 
-  public static Persistence getPersistence() {
+  public static PersonStore getPersistence() {
     return PersistenceImplHolder.instance;
   }
 

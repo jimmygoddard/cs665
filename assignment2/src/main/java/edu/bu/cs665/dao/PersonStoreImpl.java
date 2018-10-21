@@ -9,12 +9,12 @@ public class PersonStoreImpl implements PersonStore {
 
   private PersonStoreImpl() {}
 
-  private static class PersistenceImplHolder {
+  private static class PersonStoreImplHolder {
     private static final PersonStore instance = new PersonStoreImpl();
   }
 
   public static PersonStore getPersistence() {
-    return PersistenceImplHolder.instance;
+    return PersonStoreImplHolder.instance;
   }
 
   @Override

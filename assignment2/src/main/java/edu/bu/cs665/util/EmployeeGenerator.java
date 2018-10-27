@@ -21,7 +21,7 @@ public class EmployeeGenerator {
 
   private static int id = 0;
 
-  private static Invoice generateExpenses() {
+  public static Invoice generateInvoice() {
     final Invoice invoice =
         new Invoice(
             LocalDate.now(),
@@ -66,7 +66,7 @@ public class EmployeeGenerator {
             .setTitle(StringUtils.capitalize(dataFactory.getRandomWord()))
             .setGender(Gender.values()[dataFactory.getNumberUpTo(Gender.values().length)])
             .createEmployee();
-    employee.addExpense(generateExpenses());
+    employee.addExpense(generateInvoice());
     return employee;
   }
 

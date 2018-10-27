@@ -13,7 +13,7 @@ public class Invoice implements Payable {
   private LocalDate dueDate;
   private String toAddress;
   private String fromAddress;
-  private List<LineItem> lineItems = new ArrayList<>();
+  private final List<LineItem> lineItems = new ArrayList<>();
 
   public Invoice() {
     this.id = ID++;
@@ -39,40 +39,20 @@ public class Invoice implements Payable {
     return createdDate;
   }
 
-  public void setCreatedDate(final LocalDate createdDate) {
-    this.createdDate = createdDate;
-  }
-
   public LocalDate getDueDate() {
     return dueDate;
-  }
-
-  public void setDueDate(final LocalDate dueDate) {
-    this.dueDate = dueDate;
   }
 
   public String getToAddress() {
     return toAddress;
   }
 
-  public void setToAddress(final String toAddress) {
-    this.toAddress = toAddress;
-  }
-
   public String getFromAddress() {
     return fromAddress;
   }
 
-  public void setFromAddress(final String fromAddress) {
-    this.fromAddress = fromAddress;
-  }
-
   public List<LineItem> getLineItems() {
     return lineItems;
-  }
-
-  public void setLineItems(final List<LineItem> lineItems) {
-    this.lineItems = lineItems;
   }
 
   public void addLineItem(final LineItem lineItem) {

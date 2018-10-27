@@ -2,7 +2,7 @@ package edu.bu.cs665.dto.persons;
 
 import edu.bu.cs665.dto.Invoice;
 import edu.bu.cs665.dto.Payable;
-import edu.bu.cs665.exception.ExceededAllowanceException;
+import edu.bu.cs665.exception.AllowanceExceededException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -81,11 +81,15 @@ public class Employee implements Payable {
   }
 
   public void addExpense(final Invoice expense) {
-    this.expenses.add(expense);
+    getExpenses().add(expense);
   }
 
   public void setEmploymentRole(final EmploymentRole employmentRole) {
     this.employmentRole = employmentRole;
+  }
+
+  public EmploymentRole getEmploymentRole() {
+    return this.employmentRole;
   }
 
   @Override
@@ -131,10 +135,10 @@ public class Employee implements Payable {
   }
 
   @Override
-  public double payBalance(double payment) throws ExceededAllowanceException {
+  public double payBalance(double payment) throws AllowanceExceededException {
     final double allowableAmount = EmploymentRole.getTotalAllowance(this.employmentRole);
     if (payment > allowableAmount) {
-      throw new ExceededAllowanceException(
+      throw new AllowanceExceededException(
           "Payment "
               + payment
               + " is higher than the allowable expense limit for employment role "

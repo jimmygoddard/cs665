@@ -55,8 +55,7 @@ public class HRServiceImplTest {
     final Employee newEmployee =
         new Employee.EmployeeBuilder().setFirstName(FIRST_NAME).setId(ID).createEmployee();
     Assert.assertFalse(
-        HRService
-            .getEmployees()
+        HRService.getEmployees()
             .stream()
             .anyMatch(
                 employee -> employee.getId() == ID && employee.getFirstName().equals(FIRST_NAME)));
@@ -64,8 +63,7 @@ public class HRServiceImplTest {
     final int actualSize = HRService.getEmployees().size();
     Assert.assertEquals(expectedSize, actualSize);
     Assert.assertTrue(
-        HRService
-            .getEmployees()
+        HRService.getEmployees()
             .stream()
             .anyMatch(
                 employee -> employee.getId() == ID && employee.getFirstName().equals(FIRST_NAME)));
@@ -94,16 +92,14 @@ public class HRServiceImplTest {
     final Employee updatedEmployee =
         new Employee.EmployeeBuilder().setFirstName(FIRST_NAME).setId(idToUpdate).createEmployee();
     Assert.assertFalse(
-        HRService
-            .getEmployees()
+        HRService.getEmployees()
             .stream()
             .anyMatch(employee -> employee.getFirstName().equals(FIRST_NAME)));
     HRService.updateEmployee(idToUpdate, updatedEmployee);
     final int actualSize = HRService.getEmployees().size();
     Assert.assertEquals(expectedSize, actualSize);
     Assert.assertTrue(
-        HRService
-            .getEmployees()
+        HRService.getEmployees()
             .stream()
             .anyMatch(employee -> employee.getFirstName().equals(FIRST_NAME)));
   }
@@ -128,18 +124,12 @@ public class HRServiceImplTest {
     final int expectedSize = HRService.getEmployees().size() - 1;
     final int idToDelete = HRService.getEmployees().get(0).getId();
     Assert.assertTrue(
-        HRService
-            .getEmployees()
-            .stream()
-            .anyMatch(employee -> employee.getId() == idToDelete));
+        HRService.getEmployees().stream().anyMatch(employee -> employee.getId() == idToDelete));
     HRService.deleteEmployee(idToDelete);
     final int actualSize = HRService.getEmployees().size();
     Assert.assertEquals(expectedSize, actualSize);
     Assert.assertFalse(
-        HRService
-            .getEmployees()
-            .stream()
-            .anyMatch(employee -> employee.getId() == idToDelete));
+        HRService.getEmployees().stream().anyMatch(employee -> employee.getId() == idToDelete));
   }
 
   /**

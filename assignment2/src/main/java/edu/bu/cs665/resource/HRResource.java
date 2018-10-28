@@ -21,15 +21,15 @@ public class HRResource {
   private static final String NON_CITIZENS_MENU_ITEM = "Only Non-US Citizens";
   private static final String TENURE_MENU_ITEM = "Get Tenure";
   private static final String QUIT_MENU_ITEM = "Quit HR Module";
-  private final Map<String, Runnable> topLevelMenu = new LinkedHashMap<>();
+  private final Map<String, Runnable> hrMenu = new LinkedHashMap<>();
   private final Chooser chooser = new ChooserImpl();
 
   public HRResource() {
     // map of strings which can be used in a menu to the methods which should be called when
     // those menu items are selected
-    topLevelMenu.put(
+    hrMenu.put(
         CREATE_MENU_ITEM, () -> HR_SERVICE.addEmployee(EmployeeGenerator.generateEmployee()));
-    topLevelMenu.put(
+    hrMenu.put(
         UPDATE_MENU_ITEM,
         () -> {
           System.out.println("Please choose the ID of the employee to update:");
@@ -41,7 +41,7 @@ public class HRResource {
             e.printStackTrace();
           }
         });
-    topLevelMenu.put(
+    hrMenu.put(
         DELETE_MENU_ITEM,
         () -> {
           System.out.println("Please choose the ID of the employee to delete:");
@@ -53,17 +53,16 @@ public class HRResource {
             e.printStackTrace();
           }
         });
-    topLevelMenu.put(LIST_MENU_ITEM, () -> HR_SERVICE.getEmployees().forEach(System.out::println));
-    topLevelMenu.put(
-        MALES_MENU_ITEM, () -> HR_SERVICE.getMaleEmployees().forEach(System.out::println));
-    topLevelMenu.put(
+    hrMenu.put(LIST_MENU_ITEM, () -> HR_SERVICE.getEmployees().forEach(System.out::println));
+    hrMenu.put(MALES_MENU_ITEM, () -> HR_SERVICE.getMaleEmployees().forEach(System.out::println));
+    hrMenu.put(
         FEMALES_MENU_ITEM, () -> HR_SERVICE.getFemaleEmployees().forEach(System.out::println));
-    topLevelMenu.put(
+    hrMenu.put(
         CITIZENS_MENU_ITEM, () -> HR_SERVICE.getEmployeesFromUS().forEach(System.out::println));
-    topLevelMenu.put(
+    hrMenu.put(
         NON_CITIZENS_MENU_ITEM,
         () -> HR_SERVICE.getEmployeesNotInUS().forEach(System.out::println));
-    topLevelMenu.put(
+    hrMenu.put(
         TENURE_MENU_ITEM,
         () -> {
           System.out.println("Please choose the ID of the employee to see their tenure:");
@@ -77,14 +76,14 @@ public class HRResource {
             e.printStackTrace();
           }
         });
-    topLevelMenu.put(QUIT_MENU_ITEM, () -> {});
+    hrMenu.put(QUIT_MENU_ITEM, () -> {});
   }
 
   public void menu() {
     String choice;
     do {
-      choice = chooser.getSingleChoice(new ArrayList<>(topLevelMenu.keySet()));
-      topLevelMenu.get(choice).run();
+      choice = chooser.getSingleChoice(new ArrayList<>(hrMenu.keySet()));
+      hrMenu.get(choice).run();
     } while (!choice.equals(QUIT_MENU_ITEM));
   }
 }

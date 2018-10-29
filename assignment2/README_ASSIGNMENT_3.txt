@@ -40,4 +40,25 @@ This assignment was created using IntelliJ.  The application and its tests can
 also be run in IntelliJ.
 
 ## Project Description
+I created an Accounting Module that performs both Accounts Payable as well as Accounts Receivable
+functions.  There are a few new concepts in addition to Employees: Customers, Vendors, a Bank, Invoices,
+and Services.
 
+The Bank supports depositing and withdrawing amounts.  There is only one bank account and it supports
+deposits and withdrawals.
+
+Customers are objects from which the company receives money.  The company produces Invoices for customers.
+Vendors are objects to which the company pays money for services.  Service objects represent the
+services purchased from a vendor.  Also, Employees can run an expense account.  These expenses are
+tracked using Invoices.
+
+There are also two new interfaces which represent Accounts Payable and Accounts Receivable: the
+Payable interface and the Receivable interface.  Vendors and Employees implement the Payable
+interface as do Invoices and Line Items.  Customers and Services implement the Receivable interface.
+
+I employed the Composite design pattern liberally in the new Accounting Module.  Also, the BankImpl
+implements the Singleton.  Finally, I used a dependency injection pattern for the Accounting Service.
+This allows for different Bank implementations to be used by the AccountingService.  For example,
+if the BankImpl were to actually be connected to a real bank, a developer could implement (or use a
+library like Mockito to generate) a Bank implementation that could be used for testing which did not
+perform actions on an actual bank account.

@@ -23,6 +23,7 @@ public class AccountingServiceImplTest {
     m_accountingService = new AccountingServiceImpl(BankImpl.getBank());
   }
 
+  /** Test that we can pay for every expense for a list of employees */
   @Test
   public void payExpenses() {
     final List<Employee> employees = EmployeeGenerator.generateEmployees(10);
@@ -31,6 +32,7 @@ public class AccountingServiceImplTest {
     Assert.assertEquals(0, actualExpenses, .001);
   }
 
+  /** Test that we can pay the balance of a single employee */
   @Test
   public void payExpense() {
     final Employee employee = EmployeeGenerator.generateEmployee();
@@ -42,6 +44,7 @@ public class AccountingServiceImplTest {
     Assert.assertEquals(originalBankBalance - totalExpenses, BankImpl.getBank().getBalance(), .001);
   }
 
+  /** Test that we can pay for all services rendered by our vendors */
   @Test
   public void payVendors() {
     final List<Vendor> vendors = VendorGenerator.generateVendors(10);
@@ -52,6 +55,9 @@ public class AccountingServiceImplTest {
         originalBankBalance - originalTotalExpenses, BankImpl.getBank().getBalance(), .001);
   }
 
+  /**
+   * Test that customer scan pay us for the entirety of the cost of our services rendered to them
+   */
   @Test
   public void receivePayments() {
     final List<Customer> customers = CustomerGenerator.generateCustomers(10);

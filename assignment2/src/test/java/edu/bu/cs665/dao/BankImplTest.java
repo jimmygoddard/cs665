@@ -8,6 +8,7 @@ public class BankImplTest {
 
   private final Bank m_bank = BankImpl.getBank();
 
+  /** Test that the BankImpl class returns the same instance every time */
   @Test
   public void getBank() {
     final Bank instanceOne = BankImpl.getBank();
@@ -15,6 +16,7 @@ public class BankImplTest {
     Assert.assertSame(instanceOne, instanceTwo);
   }
 
+  /** Test that the bank balance changes accordingly when money is deposited */
   @Test
   public void deposit() {
     final double originalBalance = m_bank.getBalance();
@@ -22,6 +24,12 @@ public class BankImplTest {
     Assert.assertEquals(originalBalance + 1, m_bank.getBalance(), .001);
   }
 
+  /**
+   * Test that the bank balance changes accordingly when money is withdrawn
+   *
+   * @throws BalanceExceededException thrown by withdrawal when the withdraw amount exceeds the bank
+   *     balance
+   */
   @Test
   public void withdrawal() throws BalanceExceededException {
     final double originalBalance = m_bank.getBalance();

@@ -6,6 +6,7 @@ import org.junit.Test;
 
 public class InvoiceTest {
 
+  /** Test that the whole balance is paid for an invoice */
   @Test
   public void payBalanceFullBalanceTest() {
     final Invoice invoice = TestDataGenerator.generateTestInvoice();
@@ -14,6 +15,7 @@ public class InvoiceTest {
     Assert.assertEquals(0, invoice.getBalance(), .001);
   }
 
+  /** Test that a partial balance is correctly paid for */
   @Test
   public void payBalancePartialBalanceTest() {
     final Invoice invoice = TestDataGenerator.generateTestInvoice();
@@ -23,6 +25,10 @@ public class InvoiceTest {
     Assert.assertEquals(TestDataGenerator.TOTAL_BALANCE - payment, invoice.getBalance(), .001);
   }
 
+  /**
+   * Test that when more than the needed amount of money is used to pay an invoice the proper amount
+   * of change is returned
+   */
   @Test
   public void payBalancePayHigherThanBalanceTest() {
     final Invoice invoice = TestDataGenerator.generateTestInvoice();

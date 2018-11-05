@@ -4,6 +4,7 @@ import edu.bu.cs665.resource.AccountingResource;
 import edu.bu.cs665.resource.Chooser;
 import edu.bu.cs665.resource.ChooserImpl;
 import edu.bu.cs665.resource.HRResource;
+import edu.bu.cs665.resource.MarketingResource;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -12,14 +13,17 @@ public class App {
 
   private static final HRResource HR_RESOURCE = new HRResource();
   private static final AccountingResource ACCOUNTING_RESOURCE = new AccountingResource();
+  private static final MarketingResource MARKETING_RESOURCE = new MarketingResource();
   private static final String HR_MENU_ITEM = "HR Module";
   private static final String ACCOUNTING_MENU_ITEM = "Accounting Module";
+  private static final String MARKETING_MENU_ITEM = "Marketing Module";
   private static final String QUIT_MENU_ITEM = "Quit";
   private static final Map<String, Runnable> appMenu = new LinkedHashMap<>();
 
   static {
     appMenu.put(HR_MENU_ITEM, HR_RESOURCE::menu);
     appMenu.put(ACCOUNTING_MENU_ITEM, ACCOUNTING_RESOURCE::menu);
+    appMenu.put(MARKETING_MENU_ITEM, MARKETING_RESOURCE::menu);
     appMenu.put(QUIT_MENU_ITEM, () -> {});
   }
 

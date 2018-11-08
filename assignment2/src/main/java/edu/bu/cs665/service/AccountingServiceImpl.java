@@ -64,4 +64,9 @@ public class AccountingServiceImpl implements AccountingService {
   public void receivePayments(final List<Customer> customers) {
     customers.forEach(customer -> m_bank.deposit(customer.payForServices()));
   }
+
+  @Override
+  public double getBalance() {
+    return m_bank.getBalance();
+  }
 }

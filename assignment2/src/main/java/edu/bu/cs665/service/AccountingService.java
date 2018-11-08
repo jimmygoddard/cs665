@@ -12,4 +12,6 @@ public interface AccountingService {
   void payVendors(List<Vendor> vendors);
 
   void receivePayments(List<Customer> customers);
+
+  double getBalance();
 }

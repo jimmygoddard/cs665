@@ -6,17 +6,51 @@ import java.util.Objects;
 
 public class Customer implements Receivable {
 
-  private final String name;
-  private final String address;
-  private final List<Service> services = new ArrayList<>();
+  private String m_name;
+  private String m_address;
+  private String m_email;
+  private final List<Service> m_services = new ArrayList<>();
+  private CustomerStatus m_customerStatus;
 
   public Customer(final String name, final String address) {
-    this.name = name;
-    this.address = address;
+    m_name = name;
+    m_address = address;
+  }
+
+  public String getName() {
+    return m_name;
+  }
+
+  public void setName(final String name) {
+    m_name = name;
+  }
+
+  public String getAddress() {
+    return m_address;
+  }
+
+  public void setAddress(final String address) {
+    m_address = address;
+  }
+
+  public String getEmail() {
+    return m_email;
+  }
+
+  public void setEmail(final String email) {
+    m_email = email;
+  }
+
+  public CustomerStatus getCustomerStatus() {
+    return m_customerStatus;
+  }
+
+  public void setCustomerStatus(final CustomerStatus customerStatus) {
+    this.m_customerStatus = customerStatus;
   }
 
   private List<Service> getServices() {
-    return this.services;
+    return m_services;
   }
 
   public void addService(final Service service) {
@@ -42,27 +76,31 @@ public class Customer implements Receivable {
       return false;
     }
     final Customer customer = (Customer) o;
-    return Objects.equals(name, customer.name)
-        && Objects.equals(address, customer.address)
+    return Objects.equals(m_name, customer.m_name)
+        && Objects.equals(m_address, customer.m_address)
+        && Objects.equals(m_email, customer.m_email)
         && Objects.equals(getServices(), customer.getServices());
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, address, getServices());
+    return Objects.hash(m_name, m_address, m_email, getServices());
   }
 
   @Override
   public String toString() {
     return "Customer{"
         + "name='"
-        + name
+        + m_name
         + '\''
         + ", address='"
-        + address
+        + m_address
+        + '\''
+        + ", email='"
+        + m_email
         + '\''
         + ", services="
-        + services
+        + m_services
         + '}';
   }
 }

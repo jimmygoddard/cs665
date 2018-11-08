@@ -4,8 +4,8 @@ Note: For assignment 3 I've added on to what I did for assignment 2.  The README
 to indicate which assignment it's appropriate for.  However, the jar is still named "assignment2"
 even though it will contain the work done for assignment 3.
 
-To compile on windows, edit the gradle.properties file to point to the correct
-location of your Java installation.
+To compile on windows, rename the "gradle.properties.win" file to "gradle.properties" and edit that
+file to point to the correct location of your Java installation.
 
 To compile on Linux, rename or remove the gradle.properties file.  Gradle should
 be able to locate your Java installation without specifically configuring the path.

@@ -1,5 +1,13 @@
 package edu.bu.cs665.resource;
 
+import edu.bu.cs665.dao.CustomerStoreImpl;
+import edu.bu.cs665.dao.VendorStoreImpl;
+import edu.bu.cs665.service.CustomerService;
+import edu.bu.cs665.service.CustomerServiceImpl;
+import edu.bu.cs665.service.MarketingService;
+import edu.bu.cs665.service.MarketingServiceImpl;
+import edu.bu.cs665.service.VendorService;
+import edu.bu.cs665.service.VendorServiceImpl;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -20,9 +28,16 @@ public class MarketingResource {
 
   private final Map<String, Runnable> m_marketingMenu = new LinkedHashMap<>();
   private final Chooser m_chooser = new ChooserImpl();
+  private final MarketingService m_marketingService = new MarketingServiceImpl();
+  private final CustomerService m_customerService =
+      new CustomerServiceImpl(CustomerStoreImpl.getCustomerStore());
+  private final VendorService m_vendorService =
+      new VendorServiceImpl(VendorStoreImpl.getVendorStore());
 
   public MarketingResource() {
-    m_marketingMenu.put(EMAIL_POTENTIAL_CUSTOMERS_MENU_ITEM, () -> {});
+    m_marketingMenu.put(
+        EMAIL_POTENTIAL_CUSTOMERS_MENU_ITEM,
+        () -> m_marketingService.emailCustomers(m_marketingService.getPotentialCustomers()));
     m_marketingMenu.put(LIST_BUSINESS_PARNTERS_MENU_ITEM, () -> {});
     m_marketingMenu.put(LIST_COMPLETED_SALES_MENU_ITEM, () -> {});
     m_marketingMenu.put(LIST_IN_PROGRESS_SALES_MENU_ITEM, () -> {});

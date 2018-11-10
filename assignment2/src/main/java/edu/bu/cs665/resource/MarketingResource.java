@@ -32,7 +32,7 @@ public class MarketingResource {
     marketingMenu.put(
         EMAIL_POTENTIAL_CUSTOMERS_MENU_ITEM,
         () -> {
-          List<String> emails = null;
+          final List<String> emails;
           try {
             emails = marketingService.emailCustomers();
           } catch (final InvalidMarketingStateException e) {
@@ -45,7 +45,7 @@ public class MarketingResource {
     marketingMenu.put(
         LIST_BUSINESS_PARTNERS_MENU_ITEM,
         () -> {
-          List<Vendor> partners = null;
+          final List<Vendor> partners;
           try {
             partners = marketingService.getPartners();
           } catch (final InvalidMarketingStateException e) {
@@ -62,7 +62,7 @@ public class MarketingResource {
     marketingMenu.put(
         LIST_COMPLETED_SALES_MENU_ITEM,
         () -> {
-          List<Customer> customers = null;
+          final List<Customer> customers;
           try {
             customers = marketingService.getCurrentCustomers();
           } catch (final InvalidMarketingStateException e) {
@@ -79,7 +79,7 @@ public class MarketingResource {
     marketingMenu.put(
         LIST_IN_PROGRESS_SALES_MENU_ITEM,
         () -> {
-          List<Customer> customers = null;
+          final List<Customer> customers;
           try {
             customers = marketingService.getInProgressCustomers();
           } catch (final InvalidMarketingStateException e) {
@@ -97,7 +97,7 @@ public class MarketingResource {
     marketingMenu.put(
         LIST_NOT_STARTED_SALES_MENU_ITEM,
         () -> {
-          List<Customer> customers = null;
+          final List<Customer> customers;
           try {
             customers = marketingService.getPotentialCustomers();
           } catch (final InvalidMarketingStateException e) {
@@ -115,7 +115,7 @@ public class MarketingResource {
     marketingMenu.put(
         SHOW_NO_SALES_REASONS,
         () -> {
-          List<Customer> customers = null;
+          final List<Customer> customers;
           try {
             customers = marketingService.getRejectedCustomers();
           } catch (final InvalidMarketingStateException e) {

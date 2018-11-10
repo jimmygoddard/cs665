@@ -6,19 +6,24 @@ import java.util.List;
 
 public class CustomerServiceImpl implements CustomerService {
 
-  private final CustomerStore m_customerStore;
+  private final CustomerStore customerStore;
 
   public CustomerServiceImpl(final CustomerStore customerStore) {
-    m_customerStore = customerStore;
+    this.customerStore = customerStore;
   }
 
   @Override
   public List<Customer> getCustomers() {
-    return m_customerStore.getCustomers();
+    return customerStore.getCustomers();
   }
 
   @Override
   public void setCustomers(final List<Customer> customers) {
-    m_customerStore.setCustomers(customers);
+    customerStore.setCustomers(customers);
+  }
+
+  @Override
+  public void addCustomers(List<Customer> customers) {
+    customerStore.getCustomers().addAll(customers);
   }
 }

@@ -6,55 +6,64 @@ import java.util.Objects;
 
 public class Customer implements Receivable {
 
-  private String m_name;
-  private String m_address;
-  private String m_email;
-  private final List<Service> m_services = new ArrayList<>();
-  private CustomerStatus m_customerStatus;
+  private String name;
+  private String address;
+  private String email;
+  private final List<Service> services = new ArrayList<>();
+  private CustomerStatus customerStatus;
+  private String rejectedSalesReason;
 
   public Customer(final String name, final String address) {
-    m_name = name;
-    m_address = address;
+    this.name = name;
+    this.address = address;
   }
 
   public String getName() {
-    return m_name;
+    return name;
   }
 
   public void setName(final String name) {
-    m_name = name;
+    this.name = name;
   }
 
   public String getAddress() {
-    return m_address;
+    return address;
   }
 
   public void setAddress(final String address) {
-    m_address = address;
+    this.address = address;
   }
 
   public String getEmail() {
-    return m_email;
+    return email;
   }
 
   public void setEmail(final String email) {
-    m_email = email;
+    this.email = email;
   }
 
   public CustomerStatus getCustomerStatus() {
-    return m_customerStatus;
+    return customerStatus;
   }
 
   public void setCustomerStatus(final CustomerStatus customerStatus) {
-    this.m_customerStatus = customerStatus;
+    this.customerStatus = customerStatus;
   }
 
   private List<Service> getServices() {
-    return m_services;
+    return services;
   }
 
   public void addService(final Service service) {
     getServices().add(service);
+  }
+
+  public String getRejectedSalesReason() {
+    return rejectedSalesReason;
+  }
+
+  public void setRejectedSalesReason(String rejectedSalesReason) {
+    this.rejectedSalesReason = rejectedSalesReason;
   }
 
   @Override
@@ -76,31 +85,31 @@ public class Customer implements Receivable {
       return false;
     }
     final Customer customer = (Customer) o;
-    return Objects.equals(m_name, customer.m_name)
-        && Objects.equals(m_address, customer.m_address)
-        && Objects.equals(m_email, customer.m_email)
+    return Objects.equals(name, customer.name)
+        && Objects.equals(address, customer.address)
+        && Objects.equals(email, customer.email)
         && Objects.equals(getServices(), customer.getServices());
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(m_name, m_address, m_email, getServices());
+    return Objects.hash(name, address, email, getServices());
   }
 
   @Override
   public String toString() {
     return "Customer{"
         + "name='"
-        + m_name
+        + name
         + '\''
         + ", address='"
-        + m_address
+        + address
         + '\''
         + ", email='"
-        + m_email
+        + email
         + '\''
         + ", services="
-        + m_services
+        + services
         + '}';
   }
 }

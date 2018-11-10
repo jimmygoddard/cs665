@@ -16,18 +16,18 @@ import org.junit.Test;
 
 public class AccountingServiceImplTest {
 
-  private AccountingService m_accountingService;
+  private AccountingService accountingService;
 
   @Before
   public void setUp() {
-    m_accountingService = new AccountingServiceImpl(BankImpl.getBank());
+    accountingService = new AccountingServiceImpl(BankImpl.getBank());
   }
 
   /** Test that we can pay for every expense for a list of employees */
   @Test
   public void payExpenses() {
     final List<Employee> employees = EmployeeGenerator.generateEmployees(10);
-    m_accountingService.payExpenses(employees);
+    accountingService.payExpenses(employees);
     final double actualExpenses = employees.stream().mapToDouble(Employee::getBalance).sum();
     Assert.assertEquals(0, actualExpenses, .001);
   }
@@ -40,7 +40,7 @@ public class AccountingServiceImplTest {
     final double totalExpenses = employee.getBalance();
     final double originalBankBalance = BankImpl.getBank().getBalance();
     final List<Employee> employees = Collections.singletonList(employee);
-    m_accountingService.payExpenses(employees);
+    accountingService.payExpenses(employees);
     Assert.assertEquals(originalBankBalance - totalExpenses, BankImpl.getBank().getBalance(), .001);
   }
 
@@ -50,7 +50,7 @@ public class AccountingServiceImplTest {
     final List<Vendor> vendors = VendorGenerator.generateVendors(10);
     final double originalTotalExpenses = vendors.stream().mapToDouble(Vendor::getBalance).sum();
     final double originalBankBalance = BankImpl.getBank().getBalance();
-    m_accountingService.payVendors(vendors);
+    accountingService.payVendors(vendors);
     Assert.assertEquals(
         originalBankBalance - originalTotalExpenses, BankImpl.getBank().getBalance(), .001);
   }
@@ -64,7 +64,7 @@ public class AccountingServiceImplTest {
     final double originalTotalPayments =
         customers.stream().mapToDouble(Customer::getTotalCost).sum();
     final double originalBankBalance = BankImpl.getBank().getBalance();
-    m_accountingService.receivePayments(customers);
+    accountingService.receivePayments(customers);
     Assert.assertEquals(
         originalBankBalance + originalTotalPayments, BankImpl.getBank().getBalance(), .001);
   }

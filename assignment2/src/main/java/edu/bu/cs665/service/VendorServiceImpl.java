@@ -6,19 +6,24 @@ import java.util.List;
 
 public class VendorServiceImpl implements VendorService {
 
-  private final VendorStore m_vendorStore;
+  private final VendorStore vendorStore;
 
   public VendorServiceImpl(final VendorStore vendorStore) {
-    m_vendorStore = vendorStore;
+    this.vendorStore = vendorStore;
   }
 
   @Override
   public List<Vendor> getVendors() {
-    return m_vendorStore.getVendors();
+    return vendorStore.getVendors();
   }
 
   @Override
   public void setVendors(final List<Vendor> vendors) {
-    m_vendorStore.setVendors(vendors);
+    vendorStore.setVendors(vendors);
+  }
+
+  @Override
+  public void addVendors(final List<Vendor> vendors) {
+    vendorStore.getVendors().addAll(vendors);
   }
 }

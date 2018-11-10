@@ -32,78 +32,77 @@ public class AccountingResource {
   private static final String PRINT_BANK_BALANCE_MENU_ITEM = "Print bank balance";
   private static final String QUIT_MENU_ITEM = "Quit Accounting Module";
 
-  private final AccountingService m_accountingService =
-      new AccountingServiceImpl(BankImpl.getBank());
-  private final CustomerService m_customerService =
+  private final AccountingService accountingService = new AccountingServiceImpl(BankImpl.getBank());
+  private final CustomerService customerService =
       new CustomerServiceImpl(CustomerStoreImpl.getCustomerStore());
-  private final VendorService m_vendorService =
+  private final VendorService vendorService =
       new VendorServiceImpl(VendorStoreImpl.getVendorStore());
-  private final HRService m_hrService = HRServiceImpl.getHRService();
-  private final Map<String, Runnable> m_accountingMenu = new LinkedHashMap<>();
-  private final Chooser m_chooser = new ChooserImpl();
+  private final HRService hrService = HRServiceImpl.getHRService();
+  private final Map<String, Runnable> accountingMenu = new LinkedHashMap<>();
+  private final Chooser chooser = new ChooserImpl();
 
   public AccountingResource() {
-    m_accountingMenu.put(
+    accountingMenu.put(
         GENERATE_VENDORS_MENU_ITEM,
         () -> {
           System.out.println("Generating 10 vendors");
-          m_vendorService.setVendors(VendorGenerator.generateVendors(10));
+          vendorService.setVendors(VendorGenerator.generateVendors(10));
         });
-    m_accountingMenu.put(
+    accountingMenu.put(
         GENERATE_CUSTOMERS_MENU_ITEM,
         () -> {
           System.out.println("Generating 10 customers");
-          m_customerService.setCustomers(CustomerGenerator.generateCustomers(10));
+          customerService.setCustomers(CustomerGenerator.generateCustomers(10));
         });
-    m_accountingMenu.put(
-        LIST_VENDORS_MENU_ITEM, () -> m_vendorService.getVendors().forEach(System.out::println));
-    m_accountingMenu.put(
+    accountingMenu.put(
+        LIST_VENDORS_MENU_ITEM, () -> vendorService.getVendors().forEach(System.out::println));
+    accountingMenu.put(
         LIST_CUSTOMERS_MENU_ITEM,
-        () -> m_customerService.getCustomers().forEach(System.out::println));
-    m_accountingMenu.put(
+        () -> customerService.getCustomers().forEach(System.out::println));
+    accountingMenu.put(
         PAY_VENDORS_MENU_ITEM,
         () -> {
-          if (m_vendorService.getVendors().isEmpty()) {
+          if (vendorService.getVendors().isEmpty()) {
             System.out.println("No vendors to pay");
             return;
           }
           System.out.println("Paying all vendors");
-          m_accountingService.payVendors(m_vendorService.getVendors());
+          accountingService.payVendors(vendorService.getVendors());
         });
-    m_accountingMenu.put(
+    accountingMenu.put(
         RECEIVE_PAYMENTS_FROM_CUSTOMERS_MENU_ITEM,
         () -> {
-          if (m_customerService.getCustomers().isEmpty()) {
+          if (customerService.getCustomers().isEmpty()) {
             System.out.println("No customers from which to recieve payment");
             return;
           }
           System.out.println("Receiving payment from customers");
-          m_accountingService.receivePayments(m_customerService.getCustomers());
+          accountingService.receivePayments(customerService.getCustomers());
         });
-    m_accountingMenu.put(
+    accountingMenu.put(
         PAY_EMPLOYEE_EXPENSES_MENU_ITEM,
         () -> {
-          final List<Employee> employees = m_hrService.getEmployees();
+          final List<Employee> employees = hrService.getEmployees();
           if (employees.isEmpty()) {
             System.out.println(
                 "No employees to expense.  Please add employees through the HR Module");
             return;
           }
-          m_accountingService.payExpenses(employees);
+          accountingService.payExpenses(employees);
         });
-    m_accountingMenu.put(
+    accountingMenu.put(
         PRINT_BANK_BALANCE_MENU_ITEM,
         () -> {
-          System.out.println(NumberFormat.getInstance().format(m_accountingService.getBalance()));
+          System.out.println(NumberFormat.getInstance().format(accountingService.getBalance()));
         });
-    m_accountingMenu.put(QUIT_MENU_ITEM, () -> {});
+    accountingMenu.put(QUIT_MENU_ITEM, () -> {});
   }
 
   public void menu() {
     String choice;
     do {
-      choice = m_chooser.getSingleChoice(new ArrayList<>(m_accountingMenu.keySet()));
-      m_accountingMenu.get(choice).run();
+      choice = chooser.getSingleChoice(new ArrayList<>(accountingMenu.keySet()));
+      accountingMenu.get(choice).run();
     } while (!choice.equals(QUIT_MENU_ITEM));
   }
 }

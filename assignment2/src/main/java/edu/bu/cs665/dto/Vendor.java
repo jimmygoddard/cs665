@@ -8,6 +8,7 @@ public class Vendor implements Payable {
 
   private final String name;
   private final String address;
+  private boolean isPartner = false;
   private final List<Invoice> orders = new ArrayList<>();
 
   public Vendor(final String name, final String address) {
@@ -21,6 +22,14 @@ public class Vendor implements Payable {
 
   public void addOrder(final Invoice order) {
     getOrders().add(order);
+  }
+
+  public boolean isPartner() {
+    return this.isPartner;
+  }
+
+  public void isPartner(boolean isPartner) {
+    this.isPartner = isPartner;
   }
 
   @Override

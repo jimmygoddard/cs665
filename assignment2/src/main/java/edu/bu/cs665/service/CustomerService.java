@@ -9,4 +9,5 @@ public interface CustomerService {
 
   void setCustomers(List<Customer> customers);
 
+  void addCustomers(List<Customer> customers);
 }

@@ -6,7 +6,7 @@ import java.util.List;
 
 public class CustomerStoreImpl implements CustomerStore {
 
-  private List<Customer> m_customers = new ArrayList<>();
+  private List<Customer> customers = new ArrayList<>();
 
   private CustomerStoreImpl() {}
 
@@ -20,11 +20,11 @@ public class CustomerStoreImpl implements CustomerStore {
 
   @Override
   public List<Customer> getCustomers() {
-    return m_customers;
+    return customers;
   }
 
   @Override
   public void setCustomers(final List<Customer> customers) {
-    m_customers = customers;
+    this.customers = customers;
   }
 }

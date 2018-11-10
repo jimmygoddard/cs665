@@ -6,7 +6,7 @@ import org.junit.Test;
 
 public class BankImplTest {
 
-  private final Bank m_bank = BankImpl.getBank();
+  private final Bank bank = BankImpl.getBank();
 
   /** Test that the BankImpl class returns the same instance every time */
   @Test
@@ -19,9 +19,9 @@ public class BankImplTest {
   /** Test that the bank balance changes accordingly when money is deposited */
   @Test
   public void deposit() {
-    final double originalBalance = m_bank.getBalance();
-    m_bank.deposit(1);
-    Assert.assertEquals(originalBalance + 1, m_bank.getBalance(), .001);
+    final double originalBalance = bank.getBalance();
+    bank.deposit(1);
+    Assert.assertEquals(originalBalance + 1, bank.getBalance(), .001);
   }
 
   /**
@@ -32,8 +32,8 @@ public class BankImplTest {
    */
   @Test
   public void withdrawal() throws BalanceExceededException {
-    final double originalBalance = m_bank.getBalance();
-    m_bank.withdrawal(1);
-    Assert.assertEquals(originalBalance - 1, m_bank.getBalance(), .001);
+    final double originalBalance = bank.getBalance();
+    bank.withdrawal(1);
+    Assert.assertEquals(originalBalance - 1, bank.getBalance(), .001);
   }
 }

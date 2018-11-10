@@ -6,7 +6,7 @@ import java.util.List;
 
 public class VendorStoreImpl implements VendorStore {
 
-  private List<Vendor> m_vendors = new ArrayList<>();
+  private List<Vendor> vendors = new ArrayList<>();
 
   private VendorStoreImpl() {}
 
@@ -20,11 +20,11 @@ public class VendorStoreImpl implements VendorStore {
 
   @Override
   public List<Vendor> getVendors() {
-    return m_vendors;
+    return vendors;
   }
 
   @Override
   public void setVendors(final List<Vendor> vendors) {
-    m_vendors = vendors;
+    this.vendors = vendors;
   }
 }

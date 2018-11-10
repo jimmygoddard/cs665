@@ -8,4 +8,6 @@ public interface VendorService {
   List<Vendor> getVendors();
 
   void setVendors(List<Vendor> vendors);
+
+  void addVendors(List<Vendor> vendors);
 }

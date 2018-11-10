@@ -2,17 +2,20 @@ package edu.bu.cs665.service;
 
 import edu.bu.cs665.dto.Customer;
 import edu.bu.cs665.dto.Vendor;
+import edu.bu.cs665.exception.InvalidMarketingStateException;
 import java.util.List;
 
 public interface MarketingService {
 
-  void emailCustomers(List<Customer> customers);
+  List<String> emailCustomers() throws InvalidMarketingStateException;
 
-  List<Vendor> getPartners();
+  List<Vendor> getPartners() throws InvalidMarketingStateException;
 
-  List<Customer> getPotentialCustomers();
+  List<Customer> getPotentialCustomers() throws InvalidMarketingStateException;
 
-  List<Customer> getCurrentCustomers();
+  List<Customer> getCurrentCustomers() throws InvalidMarketingStateException;
 
-  List<Customer> getInProgressCustomers();
+  List<Customer> getInProgressCustomers() throws InvalidMarketingStateException;
+
+  List<Customer> getRejectedCustomers() throws InvalidMarketingStateException;
 }

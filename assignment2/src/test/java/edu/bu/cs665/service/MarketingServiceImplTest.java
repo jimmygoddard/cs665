@@ -9,6 +9,7 @@ import edu.bu.cs665.exception.InvalidMarketingStateException;
 import edu.bu.cs665.util.CustomerGenerator;
 import edu.bu.cs665.util.VendorGenerator;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import org.fluttercode.datafactory.impl.DataFactory;
 import org.junit.Assert;
@@ -23,12 +24,23 @@ public class MarketingServiceImplTest {
       new VendorServiceImpl(VendorStoreImpl.getVendorStore());
   private final DataFactory datafactory = new DataFactory();
 
+  /**
+   * Make sure the VendorStore and CustomerStore are populated with random vendors and customers
+   * respectively
+   */
   @Before
   public void setUp() {
     customerService.setCustomers(CustomerGenerator.generateCustomers(10));
     vendorService.setVendors(VendorGenerator.generateVendors(10));
   }
 
+  /**
+   * Set all customers to rejected state. Set a few selected customers to potential state with
+   * specific email addresses. Verify that these are the customers that are returned by the
+   * MarketingService
+   *
+   * @throws InvalidMarketingStateException if the CustomerStore is empty
+   */
   @Test
   public void emailCustomers() throws InvalidMarketingStateException {
     final List<Customer> customers = customerService.getCustomers();
@@ -47,6 +59,12 @@ public class MarketingServiceImplTest {
     Assert.assertEquals(expectedEmails, actualEmails);
   }
 
+  /**
+   * Set all vendors to not be partners. Then set a select few to be partners. Verify that the
+   * MarketingService returns these partner vendors
+   *
+   * @throws InvalidMarketingStateException if the VendorStore is empty
+   */
   @Test
   public void getPartners() throws InvalidMarketingStateException {
     final List<Vendor> vendors = vendorService.getVendors();
@@ -60,6 +78,12 @@ public class MarketingServiceImplTest {
     Assert.assertEquals(expectedPartners, actualPartners);
   }
 
+  /**
+   * Set all customers to rejected status. Then set a select few to potential status. Verify that
+   * the MarketingService returns these selected potential customers
+   *
+   * @throws InvalidMarketingStateException if CustomerStore is empty
+   */
   @Test
   public void getPotentialCustomers() throws InvalidMarketingStateException {
     final List<Customer> customers = customerService.getCustomers();
@@ -77,6 +101,12 @@ public class MarketingServiceImplTest {
     Assert.assertEquals(expectedPotentialCustomers, actualPotentialCustomers);
   }
 
+  /**
+   * Set all customers to rejected status. Set a select few to current status. Verify that the
+   * MarketingService returns only these select few.
+   *
+   * @throws InvalidMarketingStateException if CustomerStore is empty
+   */
   @Test
   public void getCurrentCustomers() throws InvalidMarketingStateException {
     final List<Customer> customers = customerService.getCustomers();
@@ -94,6 +124,12 @@ public class MarketingServiceImplTest {
     Assert.assertEquals(expectedCurrentCustomers, actualCurrentCustomers);
   }
 
+  /**
+   * Set all customers to rejected status. Set a select few to contacted status. Verify that the
+   * MarketingService returns only these select few.
+   *
+   * @throws InvalidMarketingStateException if CustomerStore is empty
+   */
   @Test
   public void getInProgressCustomers() throws InvalidMarketingStateException {
     final List<Customer> customers = customerService.getCustomers();
@@ -111,6 +147,12 @@ public class MarketingServiceImplTest {
     Assert.assertEquals(expectedInProgressCustomers, actualInProgressCustomers);
   }
 
+  /**
+   * Set all customers to current status. Set a select few to rejected status. Verify that the
+   * MarketingService returns only these select few.
+   *
+   * @throws InvalidMarketingStateException if CustomerStore is empty
+   */
   @Test
   public void getRejectedCustomers() throws InvalidMarketingStateException {
     final List<Customer> customers = customerService.getCustomers();
@@ -126,5 +168,28 @@ public class MarketingServiceImplTest {
         Arrays.asList(customers.get(1), customers.get(5), customers.get(7));
     final List<Customer> actualRejectedCustomers = marketingService.getRejectedCustomers();
     Assert.assertEquals(expectedRejectedCustomers, actualRejectedCustomers);
+  }
+
+  /**
+   * Verify that the MarketingService will throw the correct exception when the CustomerStore is
+   * empty
+   *
+   * @throws InvalidMarketingStateException if the customer store is empty
+   */
+  @Test(expected = InvalidMarketingStateException.class)
+  public void getEmailCustomersEmptyCustomerStore() throws InvalidMarketingStateException {
+    customerService.setCustomers(Collections.emptyList());
+    marketingService.emailCustomers();
+  }
+
+  /**
+   * Verify that the MarketingService will throw the correct exception when the VendorStore is empty
+   *
+   * @throws InvalidMarketingStateException if the vendor store is empty
+   */
+  @Test(expected = InvalidMarketingStateException.class)
+  public void getPartnersEmptyVendorStore() throws InvalidMarketingStateException {
+    vendorService.setVendors(Collections.emptyList());
+    marketingService.emailCustomers();
   }
 }

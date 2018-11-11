@@ -190,6 +190,6 @@ public class MarketingServiceImplTest {
   @Test(expected = InvalidMarketingStateException.class)
   public void getPartnersEmptyVendorStore() throws InvalidMarketingStateException {
     vendorService.setVendors(Collections.emptyList());
-    marketingService.emailCustomers();
+    marketingService.getPartners();
   }
 }

@@ -6,8 +6,16 @@
  * user guide available at https://docs.gradle.org/3.4.1/userguide/tutorial_java_projects.html
  */
 
+plugins {
+    id "com.diffplug.gradle.spotless" version "3.15.0"
+}
+
 // Apply the java plugin to add support for Java
 apply plugin: 'java'
+
+// IDE plugins
+apply plugin: 'idea'
+apply plugin: 'eclipse'
 
 // Apply the application plugin to add support for building an application
 apply plugin: 'application'
@@ -20,13 +28,34 @@ repositories {
 }
 
 dependencies {
-    // This dependency is found on compile classpath of this component and consumers.
-    compile 'com.google.guava:guava:20.0'
-
-    // Use JUnit test framework
+    compile 'org.fluttercode.datafactory:datafactory:0.8'
+    compile 'org.apache.commons:commons-lang3:3.8.1'
     testCompile 'junit:junit:4.12'
 }
 
 // Define the main class for the application
 mainClassName = 'App'
 
+jar {
+    manifest {
+        attributes 'Main-Class': 'edu.bu.cs665.App'
+    }
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+javadoc {
+    source = sourceSets.main.allJava
+    options.addBooleanOption('html5', true)
+}
+
+spotless {
+    java {
+        googleJavaFormat()
+    }
+}
+
+afterEvaluate {
+    build.dependsOn javadoc
+}

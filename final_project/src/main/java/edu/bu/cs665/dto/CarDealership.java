@@ -6,5 +6,6 @@ import java.util.UUID;
 
 public interface CarDealership {
   List<Car> getCars();
-  void purchaseCar(UUID serialNumber);
+
+  Car purchaseCar(UUID serialNumber);
 }

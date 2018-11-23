@@ -1,12 +1,25 @@
 package edu.bu.cs665.dto.car;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class BMW implements CarModel {
 
+  private final Map<String, Double> makeToPrice = new HashMap<>();
+
+  public BMW() {
+    makeToPrice.put("230", 50_000.00);
+    makeToPrice.put("320", 43_000.00);
+    makeToPrice.put("330 Gran Turismo", 50_100.00);
+    makeToPrice.put("540", 65_000.00);
+    makeToPrice.put("750", 105_000.00);
+    makeToPrice.put("M4", 115_000.00);
+  }
+
   @Override
   public List<String> getMakes() {
-    return Arrays.asList("135", "230", "320", "328 Gran Turismo", "528", "750", "M4");
+    return new ArrayList<>(makeToPrice.keySet());
   }
 }

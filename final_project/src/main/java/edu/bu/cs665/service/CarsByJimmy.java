@@ -1,8 +1,12 @@
-package edu.bu.cs665.dto;
+package edu.bu.cs665.service;
 
 import edu.bu.cs665.dao.CarGarage;
 import edu.bu.cs665.dao.CarGarageImpl;
+import edu.bu.cs665.dto.TestDrive;
 import edu.bu.cs665.dto.car.Car;
+import edu.bu.cs665.exceptions.InvalidTestDriveException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -39,6 +43,25 @@ public class CarsByJimmy implements CarDealership {
       purchasedCar.isPurchased(true);
     }
     return purchasedCar;
+  }
+
+  @Override
+  public void setCars(final List<Car> cars) {
+    garage.setCars(cars);
+  }
+
+  @Override
+  public void testDrive(final String id, final LocalDate date, final LocalTime time)
+      throws InvalidTestDriveException {
+    final Car testDriveCar =
+        garage
+            .getCars()
+            .stream()
+            .filter(car -> car.getSerialNumber().toString().equals(id))
+            .findFirst()
+            .orElseThrow(() -> new InvalidTestDriveException("No car with serial number " + id));
+    final TestDrive testDrive = new TestDrive(testDriveCar, date, time);
+    testDrive.beginTestDrive();
   }
 
   @Override

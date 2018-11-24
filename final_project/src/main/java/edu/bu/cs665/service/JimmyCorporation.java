@@ -1,4 +1,4 @@
-package edu.bu.cs665.dto;
+package edu.bu.cs665.service;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -15,10 +15,10 @@ public class JimmyCorporation implements Business {
   private JimmyCorporation() {}
 
   private static class Singleton {
-    private static final Business instance = new JimmyCorporation();
+    private static final JimmyCorporation instance = new JimmyCorporation();
   }
 
-  public static Business getBusiness() {
+  public static JimmyCorporation getCorporation() {
     return Singleton.instance;
   }
 

@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
-public class Car {
+public class Car implements Cloneable {
   private final UUID serialNumber = UUID.randomUUID();
   private CarType carType;
   private String color;
@@ -62,15 +62,25 @@ public class Car {
     isPurchased = purchased;
   }
 
-  public void vacuum() {}
+  public static void vacuum(final Car car) {
+    System.out.println("vacuuming car " + car);
+  }
 
-  public void wash() {}
+  public static void wash(final Car car) {
+    System.out.println("washing car " + car);
+  }
 
-  public void adjustSeats() {}
+  public static void adjustSeats(final Car car) {
+    System.out.println("adjusting seats for car " + car);
+  }
 
-  public void refuel() {}
+  public static void refuel(final Car car) {
+    System.out.println("refueling car " + car);
+  }
 
-  public void optimizeTirePressure() {}
+  public static void optimizeTirePressure(final Car car) {
+    System.out.println("optimizing tire pressure on car " + car);
+  }
 
   @Override
   public boolean equals(final Object o) {
@@ -116,6 +126,15 @@ public class Car {
     }
     carString += '}';
     return carString;
+  }
+
+  @Override
+  public Object clone() throws CloneNotSupportedException {
+    final Car oldCar = (Car) super.clone();
+    return new Car.CarBuilder()
+        .setCarType((CarType) oldCar.getCarType().clone())
+        .setColor(oldCar.getColor())
+        .createCar();
   }
 
   public static class CarBuilder {

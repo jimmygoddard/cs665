@@ -1,4 +1,4 @@
-package edu.bu.cs665.dto;
+package edu.bu.cs665.service;
 
 import java.util.UUID;
 

@@ -1,6 +1,6 @@
 package edu.bu.cs665.dto.car;
 
-import edu.bu.cs665.exceptions.InvalidCarMake;
+import edu.bu.cs665.exceptions.InvalidCarException;
 import java.util.Objects;
 
 public class CarType {
@@ -20,11 +20,11 @@ public class CarType {
     return carMake;
   }
 
-  public void setCarMake(final String carMake) throws InvalidCarMake {
-    if (this.carModel == null) {
-      throw new InvalidCarMake("Must set car model before setting car make");
+  public void setCarMake(final String carMake) throws InvalidCarException {
+    if (carModel == null) {
+      throw new InvalidCarException("Must set car model before setting car make");
     } else if (!this.carModel.getMakes().contains(carMake)) {
-      throw new InvalidCarMake(
+      throw new InvalidCarException(
           "Car make, " + carMake + ", is not available for car model, " + carModel);
     }
     this.carMake = carMake;
@@ -32,6 +32,15 @@ public class CarType {
 
   public int getYear() {
     return year;
+  }
+
+  public double getBasePrice() throws InvalidCarException {
+    if (carModel == null) {
+      throw new InvalidCarException("Car must have a model to have a price");
+    } else if (carMake == null) {
+      throw new InvalidCarException("Car must have a make to have a price");
+    }
+    return carModel.getBasePrice(carMake);
   }
 
   @Override

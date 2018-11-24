@@ -21,4 +21,9 @@ public class Audi implements CarModel {
   public List<String> getMakes() {
     return new ArrayList<>(makeToPrice.keySet());
   }
+
+  @Override
+  public double getBasePrice(final String carMake) {
+    return makeToPrice.get(carMake);
+  }
 }

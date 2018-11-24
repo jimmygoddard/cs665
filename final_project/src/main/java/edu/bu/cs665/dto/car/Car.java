@@ -1,37 +1,32 @@
 package edu.bu.cs665.dto.car;
 
 import edu.bu.cs665.dto.car.options.Option;
+import edu.bu.cs665.exceptions.InvalidCarException;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
 public class Car {
-  private UUID serialNumber = UUID.randomUUID();
+  private final UUID serialNumber = UUID.randomUUID();
   private CarType carType;
   private String color;
   private List<Option> options;
-  private double basePrice;
   private boolean isPurchased = false;
 
-  private Car(CarType carType, String color, double basePrice) {
+  private Car(final CarType carType, final String color) {
     this.carType = carType;
     this.color = color;
-    this.basePrice = basePrice;
   }
 
   public UUID getSerialNumber() {
     return serialNumber;
   }
 
-  public void setSerialNumber(UUID serialNumber) {
-    this.serialNumber = serialNumber;
-  }
-
   public CarType getCarType() {
     return carType;
   }
 
-  public void setCarType(CarType carType) {
+  public void setCarType(final CarType carType) {
     this.carType = carType;
   }
 
@@ -39,7 +34,7 @@ public class Car {
     return color;
   }
 
-  public void setColor(String color) {
+  public void setColor(final String color) {
     this.color = color;
   }
 
@@ -47,27 +42,23 @@ public class Car {
     return options;
   }
 
-  public void setOptions(List<Option> options) {
+  public void setOptions(final List<Option> options) {
     this.options = options;
   }
 
-  public double getBasePrice() {
-    return basePrice;
-  }
-
-  public void setBasePrice(double basePrice) {
-    this.basePrice = basePrice;
+  public double getBasePrice() throws InvalidCarException {
+    return carType.getBasePrice();
   }
 
   public boolean isPurchased() {
     return isPurchased;
   }
 
-  public void isPurchased(boolean isPurchased) {
+  public void isPurchased(final boolean isPurchased) {
     this.isPurchased = isPurchased;
   }
 
-  public void setPurchased(boolean purchased) {
+  public void setPurchased(final boolean purchased) {
     isPurchased = purchased;
   }
 
@@ -82,16 +73,15 @@ public class Car {
   public void optimizeTirePressure() {}
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(final Object o) {
     if (this == o) {
       return true;
     }
     if (!(o instanceof Car)) {
       return false;
     }
-    Car car = (Car) o;
-    return Double.compare(car.basePrice, basePrice) == 0
-        && isPurchased == car.isPurchased
+    final Car car = (Car) o;
+    return isPurchased == car.isPurchased
         && Objects.equals(serialNumber, car.serialNumber)
         && Objects.equals(carType, car.carType)
         && Objects.equals(color, car.color)
@@ -100,51 +90,51 @@ public class Car {
 
   @Override
   public int hashCode() {
-    return Objects.hash(serialNumber, carType, color, options, basePrice, isPurchased);
+    return Objects.hash(serialNumber, carType, color, options, isPurchased);
   }
 
   @Override
   public String toString() {
-    return "Car{"
-        + "serialNumber="
-        + serialNumber
-        + ", carType="
-        + carType
-        + ", color='"
-        + color
-        + '\''
-        + ", options="
-        + options
-        + ", basePrice="
-        + basePrice
-        + ", isPurchased="
-        + isPurchased
-        + '}';
+    String carString =
+        "Car{"
+            + "serialNumber="
+            + serialNumber
+            + ", carType="
+            + carType
+            + ", color='"
+            + color
+            + '\''
+            + ", options="
+            + options
+            + ", isPurchased="
+            + isPurchased;
+    final double basePrice;
+    try {
+      basePrice = getBasePrice();
+      carString += ", basePrice=$" + basePrice;
+    } catch (final InvalidCarException ignore) {
+    }
+    carString += '}';
+    return carString;
   }
 
   public static class CarBuilder {
 
     private CarType carType;
-    private String color;
-    private double basePrice;
+    private String color = "black";
 
-    public CarBuilder setCarType(CarType carType) {
+    public CarBuilder setCarType(final CarType carType) {
       this.carType = carType;
       return this;
     }
 
-    public CarBuilder setColor(String color) {
+    public CarBuilder setColor(final String color) {
       this.color = color;
       return this;
     }
 
-    public CarBuilder setBasePrice(double basePrice) {
-      this.basePrice = basePrice;
-      return this;
-    }
-
     public Car createCar() {
-      return new Car(carType, color, basePrice);
+      return new Car(carType, color);
     }
   }
 }

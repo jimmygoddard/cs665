@@ -4,4 +4,6 @@ import java.util.List;
 
 public interface CarModel {
   List<String> getMakes();
+
+  double getBasePrice(String carMake);
 }

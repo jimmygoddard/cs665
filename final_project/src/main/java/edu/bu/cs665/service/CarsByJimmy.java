@@ -105,11 +105,6 @@ public class CarsByJimmy implements CarDealership {
   }
 
   @Override
-  public List<Option> getPossibleOptions() {
-    return options;
-  }
-
-  @Override
   public List<String> getOptionNames() {
     return options.stream().map(Option::getOptionName).collect(Collectors.toList());
   }

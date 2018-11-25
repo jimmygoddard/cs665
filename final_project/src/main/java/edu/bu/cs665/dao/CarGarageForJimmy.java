@@ -4,19 +4,20 @@ import edu.bu.cs665.dto.car.Car;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.StringJoiner;
 
-public class CarGarageImpl implements CarGarage {
+public class CarGarageForJimmy implements CarGarage {
 
   private List<Car> cars = Collections.emptyList();
 
-  private CarGarageImpl() {}
+  private CarGarageForJimmy() {}
 
-  private static class CarGarageImplHolder {
-    private static final CarGarage instance = new CarGarageImpl();
+  private static class Singleton {
+    private static final CarGarage instance = new CarGarageForJimmy();
   }
 
   public static CarGarage getCarGarage() {
-    return CarGarageImplHolder.instance;
+    return Singleton.instance;
   }
 
   @Override
@@ -39,10 +40,10 @@ public class CarGarageImpl implements CarGarage {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof CarGarageImpl)) {
+    if (!(o instanceof CarGarageForJimmy)) {
       return false;
     }
-    final CarGarageImpl carGarage = (CarGarageImpl) o;
+    final CarGarageForJimmy carGarage = (CarGarageForJimmy) o;
     return Objects.equals(cars, carGarage.cars);
   }
 
@@ -53,6 +54,8 @@ public class CarGarageImpl implements CarGarage {
 
   @Override
   public String toString() {
-    return "CarGarageImpl{" + "cars=" + cars + '}';
+    return new StringJoiner(", ", CarGarageForJimmy.class.getSimpleName() + "[", "]")
+        .add("cars=" + cars)
+        .toString();
   }
 }

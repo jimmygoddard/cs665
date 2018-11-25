@@ -1,23 +1,46 @@
 package edu.bu.cs665.service;
 
 import edu.bu.cs665.dao.CarGarage;
-import edu.bu.cs665.dao.CarGarageImpl;
+import edu.bu.cs665.dao.CarGarageForJimmy;
 import edu.bu.cs665.dto.Cars;
 import edu.bu.cs665.dto.RedCars;
 import edu.bu.cs665.dto.TestDrive;
 import edu.bu.cs665.dto.car.Car;
+import edu.bu.cs665.dto.car.options.DetailedPaintJob;
+import edu.bu.cs665.dto.car.options.ElectricEngine;
+import edu.bu.cs665.dto.car.options.GasEngine;
+import edu.bu.cs665.dto.car.options.Hyrdaulics;
+import edu.bu.cs665.dto.car.options.LeatherInterior;
+import edu.bu.cs665.dto.car.options.MoonRoof;
 import edu.bu.cs665.dto.car.options.Option;
+import edu.bu.cs665.dto.car.options.PerformanceEngine;
+import edu.bu.cs665.dto.car.options.Turbo;
+import edu.bu.cs665.dto.car.options.UpgradeTires;
 import edu.bu.cs665.exceptions.InvalidTestDriveException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.StringJoiner;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class CarsByJimmy implements CarDealership {
 
-  private final CarGarage garage = CarGarageImpl.getCarGarage();
+  private final CarGarage garage = CarGarageForJimmy.getCarGarage();
+
+  private final List<Option> options =
+      Arrays.asList(
+          new DetailedPaintJob(),
+          new ElectricEngine(),
+          new GasEngine(),
+          new Hyrdaulics(),
+          new LeatherInterior(),
+          new MoonRoof(),
+          new PerformanceEngine(),
+          new UpgradeTires(),
+          new Turbo());
 
   private CarsByJimmy() {}
 
@@ -29,11 +52,11 @@ public class CarsByJimmy implements CarDealership {
     return Singleton.instance;
   }
 
-  private Car getCarById(final UUID serialNumber) {
+  private Car getCarById(final String serialNumber) {
     return garage
         .getCars()
         .stream()
-        .filter(car -> car.getSerialNumber().equals(serialNumber))
+        .filter(car -> car.getSerialNumber().equals(UUID.fromString(serialNumber)))
         .findFirst()
         .orElse(null);
   }
@@ -49,7 +72,7 @@ public class CarsByJimmy implements CarDealership {
   }
 
   @Override
-  public Car purchaseCar(final UUID serialNumber) {
+  public Car purchaseCar(final String serialNumber) {
     final Car car = getCarById(serialNumber);
     if (car != null) {
       car.isPurchased(true);
@@ -82,7 +105,30 @@ public class CarsByJimmy implements CarDealership {
   }
 
   @Override
-  public Car addOptionsToCar(final UUID serialNumber, final List<Option> options) {
+  public List<Option> getPossibleOptions() {
+    return options;
+  }
+
+  @Override
+  public List<String> getOptionNames() {
+    return options.stream().map(Option::getOptionName).collect(Collectors.toList());
+  }
+
+  @Override
+  public Car addOptionsToCar(final String serialNumber, final List<String> optionNames) {
+    final List<Option> packages =
+        optionNames
+            .stream()
+            .map(
+                name ->
+                    options
+                        .stream()
+                        .filter(option -> option.getOptionName().equals(name))
+                        .findFirst()
+                        .orElse(null))
+            .filter(Objects::nonNull)
+            .collect(Collectors.toList());
+
     final Car car = getCarById(serialNumber);
     car.setOptions(options);
     return car;
@@ -107,6 +153,6 @@ public class CarsByJimmy implements CarDealership {
 
   @Override
   public String toString() {
-    return "CarsByJimmy{" + "garage=" + garage + '}';
+    return new StringJoiner(", ", "Cars By Jimmy [", "]").add("garage=" + garage).toString();
   }
 }

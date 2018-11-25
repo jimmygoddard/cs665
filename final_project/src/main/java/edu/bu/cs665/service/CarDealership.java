@@ -8,7 +8,6 @@ import edu.bu.cs665.exceptions.InvalidTestDriveException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.UUID;
 
 public interface CarDealership {
   Cars getCars();
@@ -19,9 +18,13 @@ public interface CarDealership {
 
   RedCars getRedCars();
 
-  Car purchaseCar(UUID serialNumber);
+  Car purchaseCar(String serialNumber);
 
   void testDrive(String id, LocalDate date, LocalTime time) throws InvalidTestDriveException;
 
-  Car addOptionsToCar(UUID serialNumber, List<Option> options);
+  List<Option> getPossibleOptions();
+
+  List<String> getOptionNames();
+
+  Car addOptionsToCar(String serialNumber, List<String> options);
 }

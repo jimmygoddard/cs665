@@ -1,6 +1,7 @@
 package edu.bu.cs665.service;
 
 import java.util.Objects;
+import java.util.StringJoiner;
 import java.util.UUID;
 import org.fluttercode.datafactory.impl.DataFactory;
 
@@ -67,13 +68,9 @@ public class JimmyCorporation implements Business {
 
   @Override
   public String toString() {
-    return "JimmyCorporation{"
-        + "address='"
-        + address
-        + '\''
-        + ", phoneNumber='"
-        + phoneNumber
-        + '\''
-        + '}';
+    return new StringJoiner(", ", "Jimmy Corporation [", "]")
+        .add("address='" + address + "'")
+        .add("phoneNumber='" + phoneNumber + "'")
+        .toString();
   }
 }

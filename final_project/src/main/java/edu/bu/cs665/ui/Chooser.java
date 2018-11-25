@@ -1,4 +1,4 @@
-package edu.bu.cs665.resource;
+package edu.bu.cs665.ui;
 
 import edu.bu.cs665.dto.car.Car;
 import java.util.List;

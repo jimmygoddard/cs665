@@ -2,6 +2,8 @@ package edu.bu.cs665.service;
 
 import edu.bu.cs665.dao.CarGarage;
 import edu.bu.cs665.dao.CarGarageImpl;
+import edu.bu.cs665.dto.Cars;
+import edu.bu.cs665.dto.RedCars;
 import edu.bu.cs665.dto.TestDrive;
 import edu.bu.cs665.dto.car.Car;
 import edu.bu.cs665.dto.car.options.Option;
@@ -11,6 +13,7 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class CarsByJimmy implements CarDealership {
 
@@ -36,8 +39,13 @@ public class CarsByJimmy implements CarDealership {
   }
 
   @Override
-  public List<Car> getCars() {
-    return garage.getCars();
+  public Cars getCars() {
+    return new Cars(garage.getCars());
+  }
+
+  @Override
+  public RedCars getRedCars() {
+    return new RedCars(garage.getCars());
   }
 
   @Override
@@ -47,6 +55,11 @@ public class CarsByJimmy implements CarDealership {
       car.isPurchased(true);
     }
     return car;
+  }
+
+  @Override
+  public List<Car> getPurchasedCars() {
+    return garage.getCars().stream().filter(Car::isPurchased).collect(Collectors.toList());
   }
 
   @Override

@@ -17,6 +17,10 @@ public class Cars implements Iterable<Car> {
     return cars == null || cars.isEmpty();
   }
 
+  public List<Car> toList() {
+    return cars;
+  }
+
   @Override
   public Iterator<Car> iterator() {
     return new CarIterator();

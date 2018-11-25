@@ -13,6 +13,7 @@ import edu.bu.cs665.dto.car.options.Option;
 import edu.bu.cs665.dto.car.options.PerformanceEngine;
 import edu.bu.cs665.dto.car.options.Turbo;
 import edu.bu.cs665.dto.car.options.UpgradeTires;
+import edu.bu.cs665.exceptions.InvalidCarException;
 import edu.bu.cs665.exceptions.InvalidTestDriveException;
 import edu.bu.cs665.service.CarDealership;
 import edu.bu.cs665.util.CarGenerator;
@@ -26,6 +27,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.StringJoiner;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import org.fluttercode.datafactory.impl.DataFactory;
@@ -36,6 +38,7 @@ public class CarDealershipResource {
   private static final String LIST_RED_CARS_MENU_ITEM = "List red cars";
   private static final String CUSTOMIZE_CAR_MENU_ITEM = "Customize car";
   private static final String PURCHASE_CAR_MENU_ITEM = "Purchase car";
+  private static final String LIST_PURCHASED_CARS = "List purchased cars";
   private static final String TEST_DRIVE_CAR_MENU_ITEM = "Test drive car";
   private static final String QUIT_MENU_ITEM = "Quit";
 
@@ -60,7 +63,7 @@ public class CarDealershipResource {
     menu.put(
         LIST_CARS_MENU_ITEM,
         () -> {
-          final Cars cars = new Cars(carDealership.getCars());
+          final Cars cars = carDealership.getCars();
           if (cars.isEmpty()) {
             System.out.println("No cars to list.  Please create a list of cars");
             return;
@@ -74,7 +77,7 @@ public class CarDealershipResource {
     menu.put(
         LIST_RED_CARS_MENU_ITEM,
         () -> {
-          final RedCars redCars = new RedCars(carDealership.getCars());
+          final RedCars redCars = carDealership.getRedCars();
           if (redCars.isEmpty()) {
             System.out.println("No cars to list.  Please create a list of cars");
             return;
@@ -89,7 +92,7 @@ public class CarDealershipResource {
     menu.put(
         CUSTOMIZE_CAR_MENU_ITEM,
         () -> {
-          final List<Car> cars = carDealership.getCars();
+          final List<Car> cars = carDealership.getCars().toList();
           if (cars.isEmpty()) {
             System.out.println("No cars to list.  Please create a list of cars");
             return;
@@ -120,7 +123,7 @@ public class CarDealershipResource {
     menu.put(
         PURCHASE_CAR_MENU_ITEM,
         () -> {
-          final List<Car> cars = carDealership.getCars();
+          final List<Car> cars = carDealership.getCars().toList();
           if (cars.isEmpty()) {
             System.out.println("No cars to list.  Please create a list of cars");
             return;
@@ -131,9 +134,41 @@ public class CarDealershipResource {
           System.out.println("Purchased car " + car);
         });
     menu.put(
+        LIST_PURCHASED_CARS,
+        () -> {
+          final List<Car> cars = carDealership.getCars().toList();
+          if (cars.isEmpty()) {
+            System.out.println("No cars to list.  Please create a list of cars");
+            return;
+          }
+          final List<Car> purchasedCars = carDealership.getPurchasedCars();
+          if (purchasedCars.isEmpty()) {
+            System.out.println("No cars have been purchased");
+            return;
+          }
+          purchasedCars.forEach(
+              car -> {
+                final double totalPrice;
+                try {
+                  totalPrice = car.getTotalPrice();
+                } catch (final InvalidCarException e) {
+                  System.err.println(e.getMessage());
+                  return;
+                }
+                final String carString =
+                    new StringJoiner(", ", Car.class.getSimpleName() + "[", "]")
+                        .add("carSerialNumber='" + car.getSerialNumber() + "'")
+                        .add("carType=" + car.getCarType())
+                        .add("totalPrice=$" + totalPrice)
+                        .toString();
+                System.out.println(carString);
+              });
+        });
+
+    menu.put(
         TEST_DRIVE_CAR_MENU_ITEM,
         () -> {
-          final List<Car> cars = carDealership.getCars();
+          final List<Car> cars = carDealership.getCars().toList();
           if (cars.isEmpty()) {
             System.out.println("No cars to list.  Please create a list of cars");
             return;
@@ -150,7 +185,7 @@ public class CarDealershipResource {
                     .toLocalDate(),
                 LocalTime.now());
           } catch (final InvalidTestDriveException e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
           }
         });
     menu.put(QUIT_MENU_ITEM, () -> {});

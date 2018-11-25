@@ -2,6 +2,7 @@ package edu.bu.cs665.dto.car;
 
 import edu.bu.cs665.dto.car.options.Option;
 import edu.bu.cs665.exceptions.InvalidCarException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
@@ -11,7 +12,7 @@ public class Car implements Cloneable {
   private final UUID serialNumber = UUID.randomUUID();
   private CarType carType;
   private String color;
-  private List<Option> options;
+  private List<Option> options = Collections.emptyList();
   private boolean isPurchased = false;
 
   private Car(final CarType carType, final String color) {
@@ -49,6 +50,11 @@ public class Car implements Cloneable {
 
   public double getBasePrice() throws InvalidCarException {
     return carType.getBasePrice();
+  }
+
+  public double getTotalPrice() throws InvalidCarException {
+    final double basePrice = getBasePrice();
+    return options.stream().mapToDouble(Option::getOptionPrice).sum() + basePrice;
   }
 
   public boolean isPurchased() {

@@ -4,6 +4,7 @@ import edu.bu.cs665.dao.CarGarage;
 import edu.bu.cs665.dao.CarGarageImpl;
 import edu.bu.cs665.dto.TestDrive;
 import edu.bu.cs665.dto.car.Car;
+import edu.bu.cs665.dto.car.options.Option;
 import edu.bu.cs665.exceptions.InvalidTestDriveException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -25,6 +26,15 @@ public class CarsByJimmy implements CarDealership {
     return Singleton.instance;
   }
 
+  private Car getCarById(final UUID serialNumber) {
+    return garage
+        .getCars()
+        .stream()
+        .filter(car -> car.getSerialNumber().equals(serialNumber))
+        .findFirst()
+        .orElse(null);
+  }
+
   @Override
   public List<Car> getCars() {
     return garage.getCars();
@@ -32,17 +42,11 @@ public class CarsByJimmy implements CarDealership {
 
   @Override
   public Car purchaseCar(final UUID serialNumber) {
-    final Car purchasedCar =
-        garage
-            .getCars()
-            .stream()
-            .filter(car -> car.getSerialNumber().equals(serialNumber))
-            .findFirst()
-            .orElse(null);
-    if (purchasedCar != null) {
-      purchasedCar.isPurchased(true);
+    final Car car = getCarById(serialNumber);
+    if (car != null) {
+      car.isPurchased(true);
     }
-    return purchasedCar;
+    return car;
   }
 
   @Override
@@ -62,6 +66,13 @@ public class CarsByJimmy implements CarDealership {
             .orElseThrow(() -> new InvalidTestDriveException("No car with serial number " + id));
     final TestDrive testDrive = new TestDrive(testDriveCar, date, time);
     testDrive.beginTestDrive();
+  }
+
+  @Override
+  public Car addOptionsToCar(final UUID serialNumber, final List<Option> options) {
+    final Car car = getCarById(serialNumber);
+    car.setOptions(options);
+    return car;
   }
 
   @Override

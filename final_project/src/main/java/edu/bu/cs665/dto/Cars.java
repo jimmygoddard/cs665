@@ -13,6 +13,10 @@ public class Cars implements Iterable<Car> {
     this.cars = cars;
   }
 
+  public boolean isEmpty() {
+    return cars == null || cars.isEmpty();
+  }
+
   @Override
   public Iterator<Car> iterator() {
     return new CarIterator();

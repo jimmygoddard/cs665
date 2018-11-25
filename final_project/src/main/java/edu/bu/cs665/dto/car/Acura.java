@@ -25,4 +25,9 @@ public class Acura implements CarModel {
   public double getBasePrice(final String carMake) {
     return makeToBasePrice.get(carMake);
   }
+
+  @Override
+  public String toString() {
+    return "Acura";
+  }
 }

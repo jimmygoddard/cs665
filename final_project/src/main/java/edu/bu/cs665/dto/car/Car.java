@@ -4,6 +4,7 @@ import edu.bu.cs665.dto.car.options.Option;
 import edu.bu.cs665.exceptions.InvalidCarException;
 import java.util.List;
 import java.util.Objects;
+import java.util.StringJoiner;
 import java.util.UUID;
 
 public class Car implements Cloneable {
@@ -105,27 +106,20 @@ public class Car implements Cloneable {
 
   @Override
   public String toString() {
-    String carString =
-        "Car{"
-            + "serialNumber="
-            + serialNumber
-            + ", carType="
-            + carType
-            + ", color='"
-            + color
-            + '\''
-            + ", options="
-            + options
-            + ", isPurchased="
-            + isPurchased;
+    final StringJoiner stringJoiner =
+        new StringJoiner(", ", Car.class.getSimpleName() + "[", "]")
+            .add("serialNumber=" + serialNumber)
+            .add("carType=" + carType)
+            .add("color='" + color + "'")
+            .add("options=" + options)
+            .add("isPurchased=" + isPurchased);
     final double basePrice;
     try {
       basePrice = getBasePrice();
-      carString += ", basePrice=$" + basePrice;
+      stringJoiner.add("basePrice=$" + basePrice);
     } catch (final InvalidCarException ignore) {
     }
-    carString += '}';
-    return carString;
+    return stringJoiner.toString();
   }
 
   @Override

@@ -1,13 +1,14 @@
 package edu.bu.cs665.dto.car.options;
 
 import java.util.Objects;
+import java.util.StringJoiner;
 import java.util.UUID;
 
 public class DetailedPaintJob implements Option {
 
   private final UUID id = UUID.randomUUID();
-  private final String name = "Custom paint job";
-  private final String description = "Sharp detailing and custom paint";
+  private final String name = "Racing paint job";
+  private final String description = "Sharp detailing and custom paint as they do with GT racing";
   private final double price = 5_000.00;
   private final double timeToInstall = 0;
 
@@ -55,19 +56,10 @@ public class DetailedPaintJob implements Option {
 
   @Override
   public String toString() {
-    return "DetailedPaintJob{"
-        + "id="
-        + id
-        + ", name='"
-        + name
-        + '\''
-        + ", description='"
-        + description
-        + '\''
-        + ", price="
-        + price
-        + ", timeToInstall="
-        + timeToInstall
-        + '}';
+    return new StringJoiner(", ", DetailedPaintJob.class.getSimpleName() + "[", "]")
+        .add("name='" + name + "'")
+        .add("description='" + description + "'")
+        .add("price=$" + price)
+        .toString();
   }
 }

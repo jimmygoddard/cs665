@@ -1,12 +1,13 @@
 package edu.bu.cs665.dao;
 
 import edu.bu.cs665.dto.car.Car;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
 public class CarGarageImpl implements CarGarage {
 
-  private List<Car> cars;
+  private List<Car> cars = Collections.emptyList();
 
   private CarGarageImpl() {}
 

@@ -1,6 +1,7 @@
 package edu.bu.cs665.dto.car.options;
 
 import java.util.Objects;
+import java.util.StringJoiner;
 import java.util.UUID;
 
 public class LeatherInterior implements Option {
@@ -55,19 +56,10 @@ public class LeatherInterior implements Option {
 
   @Override
   public String toString() {
-    return "LeatherInterior{"
-        + "id="
-        + id
-        + ", name='"
-        + name
-        + '\''
-        + ", description='"
-        + description
-        + '\''
-        + ", price="
-        + price
-        + ", timeToInstall="
-        + timeToInstall
-        + '}';
+    return new StringJoiner(", ", LeatherInterior.class.getSimpleName() + "[", "]")
+        .add("name='" + name + "'")
+        .add("description='" + description + "'")
+        .add("price=$" + price)
+        .toString();
   }
 }

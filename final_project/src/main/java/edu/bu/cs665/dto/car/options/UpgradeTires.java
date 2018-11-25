@@ -1,12 +1,13 @@
 package edu.bu.cs665.dto.car.options;
 
 import java.util.Objects;
+import java.util.StringJoiner;
 import java.util.UUID;
 
-public class ShowTires implements Option {
+public class UpgradeTires implements Option {
 
   private final UUID id = UUID.randomUUID();
-  private final String name = "Show tires";
+  private final String name = "Upgrade tires";
   private final String description = "Tires that make your car stand out from the crowd";
   private final double price = 4_000.00;
   private final double timeToInstall = 0;
@@ -41,11 +42,11 @@ public class ShowTires implements Option {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof ShowTires)) {
+    if (!(o instanceof UpgradeTires)) {
       return false;
     }
-    final ShowTires showTires = (ShowTires) o;
-    return Objects.equals(id, showTires.id);
+    final UpgradeTires upgradeTires = (UpgradeTires) o;
+    return Objects.equals(id, upgradeTires.id);
   }
 
   @Override
@@ -55,19 +56,10 @@ public class ShowTires implements Option {
 
   @Override
   public String toString() {
-    return "ShowTires{"
-        + "id="
-        + id
-        + ", name='"
-        + name
-        + '\''
-        + ", description='"
-        + description
-        + '\''
-        + ", price="
-        + price
-        + ", timeToInstall="
-        + timeToInstall
-        + '}';
+    return new StringJoiner(", ", UpgradeTires.class.getSimpleName() + "[", "]")
+        .add("name='" + name + "'")
+        .add("description='" + description + "'")
+        .add("price=$" + price)
+        .toString();
   }
 }

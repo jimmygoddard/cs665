@@ -11,11 +11,13 @@ import edu.bu.cs665.dto.car.Lexus;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import org.fluttercode.datafactory.impl.DataFactory;
 
 public class CarGenerator {
+  private static final Random random = new Random(123);
   private static final DataFactory dataFactory = new DataFactory();
   private static final List<String> colors =
       Arrays.asList("blue", "red", "black", "white", "green", "yellow", "purple", "brown");
@@ -29,7 +31,8 @@ public class CarGenerator {
               carType ->
                   new Car.CarBuilder()
                       .setCarType(carType)
-                      .setColor(colors.get(dataFactory.getNumberUpTo(colors.size())))
+                      .setColor(colors.get(random.nextInt(colors.size())))
+                      // .setColor(colors.get(dataFactory.getNumberUpTo(colors.size())))
                       .createCar())
           .collect(Collectors.toList());
 
@@ -42,7 +45,8 @@ public class CarGenerator {
               carType ->
                   new Car.CarBuilder()
                       .setCarType(carType)
-                      .setColor(colors.get(dataFactory.getNumberUpTo(colors.size())))
+                      .setColor(colors.get(random.nextInt(colors.size())))
+                      // .setColor(colors.get(dataFactory.getNumberUpTo(colors.size())))
                       .createCar())
           .collect(Collectors.toList());
 
@@ -55,7 +59,8 @@ public class CarGenerator {
               carType ->
                   new Car.CarBuilder()
                       .setCarType(carType)
-                      .setColor(colors.get(dataFactory.getNumberUpTo(colors.size())))
+                      .setColor(colors.get(random.nextInt(colors.size())))
+                      // .setColor(colors.get(dataFactory.getNumberUpTo(colors.size())))
                       .createCar())
           .collect(Collectors.toList());
 
@@ -68,6 +73,7 @@ public class CarGenerator {
               carType ->
                   new Car.CarBuilder()
                       .setCarType(carType)
+                      .setColor(colors.get(random.nextInt(colors.size())))
                       .setColor(colors.get(dataFactory.getNumberUpTo(colors.size())))
                       .createCar())
           .collect(Collectors.toList());
@@ -81,7 +87,8 @@ public class CarGenerator {
               carType ->
                   new Car.CarBuilder()
                       .setCarType(carType)
-                      .setColor(colors.get(dataFactory.getNumberUpTo(colors.size())))
+                      .setColor(colors.get(random.nextInt(colors.size())))
+                      // .setColor(colors.get(dataFactory.getNumberUpTo(colors.size())))
                       .createCar())
           .collect(Collectors.toList());
 
@@ -94,7 +101,8 @@ public class CarGenerator {
               carType ->
                   new Car.CarBuilder()
                       .setCarType(carType)
-                      .setColor(colors.get(dataFactory.getNumberUpTo(colors.size())))
+                      .setColor(colors.get(random.nextInt(colors.size())))
+                      // .setColor(colors.get(dataFactory.getNumberUpTo(colors.size())))
                       .createCar())
           .collect(Collectors.toList());
 
@@ -104,7 +112,8 @@ public class CarGenerator {
   private CarGenerator() {}
 
   public static Car generateCar() throws CloneNotSupportedException {
-    final List<Car> cars = allCars.get(dataFactory.getNumberUpTo(allCars.size()));
+    final List<Car> cars = allCars.get(random.nextInt(allCars.size()));
+    //    final List<Car> cars = allCars.get(dataFactory.getNumberUpTo(allCars.size()));
     return (Car) cars.get(dataFactory.getNumberUpTo(cars.size())).clone();
   }
 

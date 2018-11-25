@@ -9,6 +9,8 @@ import java.util.stream.Collectors;
 
 public class ChooserImpl implements Chooser {
 
+  private static final String DONE = "Done";
+
   @Override
   public String getCarChoice(final List<Car> cars) {
     final Chooser chooser = new ChooserImpl();
@@ -56,12 +58,14 @@ public class ChooserImpl implements Chooser {
   @Override
   public List<String> getMultipleChoices(final List<String> choices) {
     final List<String> selections = new ArrayList<>();
-    choices.add("done");
-    final String selection = getSingleChoice(choices);
-    if (selection.equals("done")) {
-      return selections;
-    }
-    selections.add(selection);
+    choices.add(DONE);
+    String selection;
+    do {
+      selection = getSingleChoice(choices);
+      if (!selection.equals(DONE)) {
+        selections.add(selection);
+      }
+    } while (!selection.equals(DONE));
     return selections;
   }
 }

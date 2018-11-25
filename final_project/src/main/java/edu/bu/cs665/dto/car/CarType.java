@@ -2,6 +2,7 @@ package edu.bu.cs665.dto.car;
 
 import edu.bu.cs665.exceptions.InvalidCarException;
 import java.util.Objects;
+import java.util.StringJoiner;
 
 public class CarType implements Cloneable {
   private CarModel carModel;
@@ -67,15 +68,11 @@ public class CarType implements Cloneable {
 
   @Override
   public String toString() {
-    return "CarType{"
-        + "carModel="
-        + carModel
-        + ", carMake='"
-        + carMake
-        + '\''
-        + ", year="
-        + year
-        + '}';
+    return new StringJoiner(", ", CarType.class.getSimpleName() + "[", "]")
+        .add("carModel=" + carModel)
+        .add("carMake='" + carMake + "'")
+        .add("year=" + year)
+        .toString();
   }
 
   @Override

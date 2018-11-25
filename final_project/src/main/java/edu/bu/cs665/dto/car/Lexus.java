@@ -25,4 +25,9 @@ public class Lexus implements CarModel {
   public double getBasePrice(final String carMake) {
     return makeToPrice.get(carMake);
   }
+
+  @Override
+  public String toString() {
+    return "Lexus";
+  }
 }

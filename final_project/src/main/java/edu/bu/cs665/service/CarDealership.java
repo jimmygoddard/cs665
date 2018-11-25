@@ -1,6 +1,7 @@
 package edu.bu.cs665.service;
 
 import edu.bu.cs665.dto.car.Car;
+import edu.bu.cs665.dto.car.options.Option;
 import edu.bu.cs665.exceptions.InvalidTestDriveException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -15,4 +16,6 @@ public interface CarDealership {
   Car purchaseCar(UUID serialNumber);
 
   void testDrive(String id, LocalDate date, LocalTime time) throws InvalidTestDriveException;
+
+  Car addOptionsToCar(UUID serialNumber, List<Option> options);
 }

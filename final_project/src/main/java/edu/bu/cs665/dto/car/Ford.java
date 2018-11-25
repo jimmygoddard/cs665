@@ -27,4 +27,9 @@ public class Ford implements CarModel {
   public double getBasePrice(final String carMake) {
     return makeToPrice.get(carMake);
   }
+
+  @Override
+  public String toString() {
+    return "Ford";
+  }
 }

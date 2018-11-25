@@ -3,10 +3,15 @@ package edu.bu.cs665.dto.car;
 import edu.bu.cs665.exceptions.InvalidCarException;
 import java.util.Objects;
 
-public class CarType {
+public class CarType implements Cloneable {
   private CarModel carModel;
   private String carMake;
   private final int year = 2018;
+
+  public CarType(final CarModel carModel, final String carMake) {
+    this.carModel = carModel;
+    this.carMake = carMake;
+  }
 
   public CarModel getCarModel() {
     return carModel;
@@ -71,5 +76,11 @@ public class CarType {
         + ", year="
         + year
         + '}';
+  }
+
+  @Override
+  public Object clone() throws CloneNotSupportedException {
+    final CarType oldType = (CarType) super.clone();
+    return new CarType(oldType.getCarModel(), oldType.getCarMake());
   }
 }

@@ -13,15 +13,22 @@ public class TestDrive {
   private Car car;
   private Customer customer;
 
+  public TestDrive(final Car car, final LocalDate date, final LocalTime time) {
+    System.out.println("Scheduling test drive at " + date + " and " + time + " for " + car);
+    this.car = car;
+    this.date = date;
+    this.time = time;
+  }
+
   public void beginTestDrive() throws InvalidTestDriveException {
-    if (car == null) {
+    if (this.car == null) {
       throw new InvalidTestDriveException("There must be a car to test drive");
     }
-    car.vacuum();
-    car.wash();
-    car.adjustSeats();
-    car.refuel();
-    car.optimizeTirePressure();
+    Car.vacuum(car);
+    Car.wash(car);
+    Car.adjustSeats(car);
+    Car.refuel(car);
+    Car.optimizeTirePressure(car);
   }
 
   public LocalDate getDate() {

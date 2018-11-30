@@ -113,7 +113,6 @@ public class CarGenerator {
 
   public static Car generateCar() throws CloneNotSupportedException {
     final List<Car> cars = allCars.get(random.nextInt(allCars.size()));
-    //    final List<Car> cars = allCars.get(dataFactory.getNumberUpTo(allCars.size()));
     return (Car) cars.get(dataFactory.getNumberUpTo(cars.size())).clone();
   }
 

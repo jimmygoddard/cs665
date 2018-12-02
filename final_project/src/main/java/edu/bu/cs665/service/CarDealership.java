@@ -25,13 +25,6 @@ public interface CarDealership {
   List<Car> getPurchasedCars();
 
   /**
-   * Set the cars which belong to this dealership
-   *
-   * @param cars cars to give to the car dealership
-   */
-  void setCars(List<Car> cars);
-
-  /**
    * Get all cars belonging to this dealership which are red
    *
    * @return all cars belonging to this dealership which are red

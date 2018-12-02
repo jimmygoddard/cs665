@@ -1,5 +1,5 @@
+import edu.bu.cs665.dto.JimmyCorporation;
 import edu.bu.cs665.service.CarDealership;
-import edu.bu.cs665.service.JimmyCorporation;
 import edu.bu.cs665.ui.CarDealershipMenu;
 
 public class App {

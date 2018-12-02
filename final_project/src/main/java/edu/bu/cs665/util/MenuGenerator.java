@@ -1,9 +1,9 @@
-package edu.bu.cs665.ui;
+package edu.bu.cs665.util;
 
 import edu.bu.cs665.dto.car.Car;
 import java.util.List;
 
-public interface Chooser {
+public interface MenuGenerator {
 
   /**
    * Present a menu of cars to choose from

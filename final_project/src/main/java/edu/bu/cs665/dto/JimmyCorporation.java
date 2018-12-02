@@ -1,5 +1,7 @@
-package edu.bu.cs665.service;
+package edu.bu.cs665.dto;
 
+import edu.bu.cs665.service.CarDealership;
+import edu.bu.cs665.service.CarsByJimmy;
 import java.util.Objects;
 import java.util.StringJoiner;
 import java.util.UUID;

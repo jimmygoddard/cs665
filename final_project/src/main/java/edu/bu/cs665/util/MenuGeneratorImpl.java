@@ -1,4 +1,4 @@
-package edu.bu.cs665.ui;
+package edu.bu.cs665.util;
 
 import edu.bu.cs665.dto.car.Car;
 import java.util.ArrayList;
@@ -7,14 +7,14 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-public class ChooserImpl implements Chooser {
+public class MenuGeneratorImpl implements MenuGenerator {
 
   private static final String DONE = "Done";
 
   @Override
   public String getCarChoice(final List<Car> cars) {
-    final Chooser chooser = new ChooserImpl();
-    return chooser.getSingleChoice(
+    final MenuGenerator menuGenerator = new MenuGeneratorImpl();
+    return menuGenerator.getSingleChoice(
         cars.stream().map(Car::getSerialNumber).map(String::valueOf).collect(Collectors.toList()),
         false);
   }

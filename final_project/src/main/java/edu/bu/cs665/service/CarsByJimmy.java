@@ -86,11 +86,6 @@ public class CarsByJimmy implements CarDealership {
   }
 
   @Override
-  public void setCars(final List<Car> cars) {
-    garage.setCars(cars);
-  }
-
-  @Override
   public void testDrive(final String id, final LocalDate date, final LocalTime time)
       throws InvalidTestDriveException {
     final Car testDriveCar =

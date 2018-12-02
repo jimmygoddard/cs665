@@ -5,9 +5,10 @@ import java.util.List;
 
 public interface CarGarage {
 
+  /**
+   * Retrieve all cars in garage
+   *
+   * @return all cars in garage
+   */
   List<Car> getCars();
-
-  void setCars(List<Car> cars);
-
-  void addCars(List<Car> cars);
 }

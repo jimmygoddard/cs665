@@ -1,16 +1,19 @@
 package edu.bu.cs665.dao;
 
 import edu.bu.cs665.dto.car.Car;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 public class CarGarageForJimmy implements CarGarage {
 
-  private List<Car> cars = Collections.emptyList();
+  private final CarStore carStore;
+  private final List<Car> cars;
 
-  private CarGarageForJimmy() {}
+  private CarGarageForJimmy() {
+    carStore = new CarStore();
+    cars = carStore.getRandomNumCars(10);
+  }
 
   private static class Singleton {
     private static final CarGarage instance = new CarGarageForJimmy();
@@ -23,16 +26,6 @@ public class CarGarageForJimmy implements CarGarage {
   @Override
   public List<Car> getCars() {
     return cars;
-  }
-
-  @Override
-  public void setCars(final List<Car> cars) {
-    this.cars = cars;
-  }
-
-  @Override
-  public void addCars(final List<Car> newCars) {
-    cars.addAll(newCars);
   }
 
   @Override

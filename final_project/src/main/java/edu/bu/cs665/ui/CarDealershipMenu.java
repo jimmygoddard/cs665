@@ -1,13 +1,14 @@
 package edu.bu.cs665.ui;
 
 import edu.bu.cs665.dto.Cars;
+import edu.bu.cs665.dto.JimmyCorporation;
 import edu.bu.cs665.dto.RedCars;
 import edu.bu.cs665.dto.car.Car;
 import edu.bu.cs665.exceptions.InvalidCarException;
 import edu.bu.cs665.exceptions.InvalidTestDriveException;
 import edu.bu.cs665.service.CarDealership;
-import edu.bu.cs665.service.JimmyCorporation;
-import edu.bu.cs665.util.CarGenerator;
+import edu.bu.cs665.util.MenuGenerator;
+import edu.bu.cs665.util.MenuGeneratorImpl;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
@@ -21,7 +22,6 @@ import java.util.StringJoiner;
 import org.fluttercode.datafactory.impl.DataFactory;
 
 public class CarDealershipMenu {
-  private static final String INITIALIZE_GARAGE = "Initialize garage";
   private static final String LIST_CARS_MENU_ITEM = "List cars";
   private static final String LIST_RED_CARS_MENU_ITEM = "List red cars";
   private static final String CUSTOMIZE_CAR_MENU_ITEM = "Customize car";
@@ -32,12 +32,11 @@ public class CarDealershipMenu {
 
   private final CarDealership carDealership;
   private final Map<String, Runnable> menu = new LinkedHashMap<>();
-  private final Chooser chooser = new ChooserImpl();
+  private final MenuGenerator menuGenerator = new MenuGeneratorImpl();
   private final DataFactory dataFactory = new DataFactory();
 
   public CarDealershipMenu(final CarDealership carDealership) {
     this.carDealership = carDealership;
-    menu.put(INITIALIZE_GARAGE, () -> carDealership.setCars(CarGenerator.generateCars(10)));
     menu.put(
         LIST_CARS_MENU_ITEM,
         () -> {
@@ -75,9 +74,10 @@ public class CarDealershipMenu {
             System.out.println("No cars to list.  Please create a list of cars");
             return;
           }
-          final String id = chooser.getCarChoice(cars);
+          final String id = menuGenerator.getCarChoice(cars);
           System.out.println("Please choose which optional packages you would like for this car");
-          final List<String> choices = chooser.getMultipleChoices(carDealership.getOptionNames());
+          final List<String> choices =
+              menuGenerator.getMultipleChoices(carDealership.getOptionNames());
           System.out.println("You have chosen the following packages");
           choices.forEach(System.out::println);
           System.out.println("Customizing car " + id);
@@ -92,7 +92,7 @@ public class CarDealershipMenu {
             System.out.println("No cars to list.  Please create a list of cars");
             return;
           }
-          final String id = chooser.getCarChoice(cars);
+          final String id = menuGenerator.getCarChoice(cars);
           System.out.println("Purchasing car " + id);
           final Car car = carDealership.purchaseCar(id);
           System.out.println("Purchased car " + car);
@@ -137,7 +137,7 @@ public class CarDealershipMenu {
             System.out.println("No cars to list.  Please create a list of cars");
             return;
           }
-          final String id = chooser.getCarChoice(cars);
+          final String id = menuGenerator.getCarChoice(cars);
           try {
             System.out.println("Test driving car");
             final LocalDate testDriveDate =
@@ -160,7 +160,7 @@ public class CarDealershipMenu {
     do {
       System.out.println("Welcome to " + JimmyCorporation.getCorporation());
       System.out.println("Home of the famous dealership " + carDealership);
-      choice = chooser.getSingleChoice(new ArrayList<>(menu.keySet()));
+      choice = menuGenerator.getSingleChoice(new ArrayList<>(menu.keySet()));
       menu.get(choice).run();
     } while (!choice.equals(QUIT_MENU_ITEM));
   }

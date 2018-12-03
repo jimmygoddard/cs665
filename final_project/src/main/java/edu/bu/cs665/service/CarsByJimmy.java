@@ -120,7 +120,7 @@ public class CarsByJimmy implements CarDealership {
             .collect(Collectors.toList());
 
     final Car car = getCarById(serialNumber);
-    car.setOptions(options);
+    car.setOptions(packages);
     return car;
   }
 

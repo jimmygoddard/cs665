@@ -38,7 +38,7 @@ mainClassName = 'App'
 
 jar {
     manifest {
-        attributes 'Main-Class': 'edu.bu.cs665.App'
+        attributes 'Main-Class': 'App'
     }
     from {
         configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
